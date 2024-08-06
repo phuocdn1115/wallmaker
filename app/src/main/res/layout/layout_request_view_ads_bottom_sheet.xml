@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_bottom_sheet"
+                    android:paddingBottom="@dimen/dp20">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp21"
+                        android:layout_marginTop="@dimen/dp30"
+                        android:layout_marginEnd="@dimen/dp21"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:text="@string/txt_need_watch_ads_to_download"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp21"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp21"
+                        android:fontFamily="@font/beviet_regular"
+                        android:gravity="center"
+                        android:text="@string/txt_need_watch_ads_to_download_description"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+                    <TextView
+                        android:id="@+id/btn_view_ads"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp22"
+                        android:layout_marginTop="@dimen/dp30"
+                        android:layout_marginEnd="@dimen/dp22"
+                        android:background="@drawable/bg_positive_btn"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/dp13"
+                        android:text="@string/txt_watch_ads"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+                    <TextView
+                        android:id="@+id/btn_no_view_ads"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp22"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginEnd="@dimen/dp22"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/dp13"
+                        android:text="@string/txt_no_thanks"
+                        android:textColor="@color/color_DE1129"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintTop_toBottomOf="@id/btn_view_ads" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

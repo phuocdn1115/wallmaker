@@ -1,0 +1,5 @@
+package com.app.photomaker.utils
+
+const val EXTRA_DATA_MODEL = "EXTRA_DATA_MODEL"
+const val EXTRA_WALLPAPER_DOWNLOADED = "EXTRA_WALLPAPER_DOWNLOADED"
+const val EXTRA_TEMPLATE = "EXTRA_TEMPLATE"

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_262626"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/layout_toolbar_editor"
+            android:id="@+id/toolbar_template"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/view_parent"
+            android:layout_marginBottom="@dimen/dp30"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_template"
+            app:layout_constraintBottom_toTopOf="@id/layout_templates"
+            android:layout_width="100dp"
+            android:layout_height="0dp">
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardElevation="@dimen/dp0"
+                app:cardCornerRadius="@dimen/dp5"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/dp2"
+                    android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView
+                        app:cardBackgroundColor="@color/color_262626"
+                        app:cardCornerRadius="@dimen/dp5"
+                        app:cardElevation="@dimen/dp0"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <com.hw.photomovie.render.GLTextureView
+                            android:id="@+id/gl_texture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginHorizontal="@dimen/dp16"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_height="wrap_content">
+                        <androidx.cardview.widget.CardView
+                            app:cardElevation="@dimen/dp0"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:cardCornerRadius="@dimen/dp5"
+                            app:cardBackgroundColor="@color/color_262626"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <eightbitlab.com.blurview.BlurView
+                                android:clipToPadding="false"
+                                android:id="@+id/blur_view"
+                                android:outlineProvider="bounds"
+                                app:blurOverlayColor="@color/color_80000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                android:paddingHorizontal="@dimen/dp10"
+                                android:paddingVertical="@dimen/dp5"
+                                android:textSize="@dimen/sp12"
+                                android:fontFamily="@font/beviet_medium"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:id="@+id/tv_name_template"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            </eightbitlab.com.blurview.BlurView>
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_list_template_video"
+            android:id="@+id/layout_templates"
+            android:layout_marginBottom="@dimen/dp25"
+            app:layout_constraintBottom_toTopOf="@id/layoutAds" />
+
+        <include
+            android:id="@+id/layoutAds"
+            layout="@layout/layout_banner_ads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

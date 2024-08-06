@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:background="@drawable/bg_gradient_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp30">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp38"
+            android:padding="@dimen/dp10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            android:layout_marginEnd="@dimen/dp16"
+            android:src="@drawable/ic_backpress"
+            app:tint="@color/white"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dp20"
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_close"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp24"
+            android:fontFamily="@font/beviet_extra_bold"
+            android:text="@string/app_name"/>
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/dp38"
+            android:layout_height="@dimen/dp38"
+            android:padding="@dimen/dp10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            android:layout_marginEnd="@dimen/dp16"
+            android:src="@drawable/ic_close_white"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

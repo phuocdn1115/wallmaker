@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@color/color_EFEFEF"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/layout_ic_tab_me_home"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp300"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tab_me" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_label_setting_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:fontFamily="@font/beviet_regular"
+                android:text="@string/text_setting_label_me_home"
+                android:textColor="@color/color_AAAAAA"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_ic_tab_me_home" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp16"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/dp12"
+                app:cardElevation="@dimen/dp0"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_setting_me">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp17"
+                    android:paddingBottom="@dimen/dp16">
+
+                    <!-- notifications -->
+
+                    <ImageView
+                        android:id="@+id/img_ic_notifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp12"
+                        android:src="@drawable/ic_notifications_tab_me_home"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_label_notifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp14"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="@string/text_notifications_label_me_home"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_notifications"
+                        app:layout_constraintStart_toEndOf="@+id/img_ic_notifications"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_notifications" />
+                    <RelativeLayout
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="@dimen/dp16"
+                        android:background="@drawable/bg_container_switch"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Switch
+                            android:id="@+id/switch_setting_noti"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumb="@drawable/thumb_background"
+                            android:track="@drawable/track_background"
+                            app:showText="false"
+                            tools:ignore="UseSwitchCompatOrMaterialXml"/>
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/img_ic_privacy_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp24"
+                        android:src="@drawable/ic_privacy_policy_me_home"
+                        app:layout_constraintStart_toStartOf="@+id/img_ic_notifications"
+                        app:layout_constraintTop_toBottomOf="@+id/img_ic_notifications" />
+
+                    <TextView
+                        android:id="@+id/tv_label_privacy_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="@string/text_privacy_policy_label_me_home"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_label_notifications"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_privacy_policy"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_privacy_policy"/>
+
+                    <!-- contact support -->
+
+                    <ImageView
+                        android:id="@+id/img_ic_contact_sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp24"
+                        android:src="@drawable/ic_contact_support_me_home"
+                        app:layout_constraintStart_toStartOf="@+id/img_ic_notifications"
+                        app:layout_constraintTop_toBottomOf="@+id/img_ic_privacy_policy" />
+
+                    <TextView
+                        android:id="@+id/tv_label_contact_sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="@string/text_contact_support_label_me_home"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_label_notifications"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_contact_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_contact_sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_email_contact_sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:fontFamily="@font/beviet_regular"
+                        android:text="@string/text_contact_support_email_me_home"
+                        android:textColor="@color/color_666666"
+                        android:textSize="@dimen/sp12"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_label_contact_sp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_label_other_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp30"
+                android:fontFamily="@font/beviet_regular"
+                android:text="@string/text_other_label_me_home"
+                android:textColor="@color/color_AAAAAA"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_view_setting"
+                android:visibility="gone"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp16"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/dp12"
+                app:cardElevation="@dimen/dp0"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_other_app">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp15"
+                    android:paddingBottom="@dimen/dp15"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/img_ic_other_app_ringo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:src="@drawable/ic_ringo"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_label_ringo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp14"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="Ringo"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintStart_toEndOf="@+id/img_ic_other_app_ringo"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_other_app_ringo"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_other_app_ringo"/>
+
+                    <!-- Wallla -->
+
+                    <ImageView
+                        android:id="@+id/img_ic_wallla"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:src="@drawable/ic_wallla"
+                        app:layout_constraintStart_toStartOf="@+id/img_ic_other_app_ringo"
+                        app:layout_constraintTop_toBottomOf="@+id/img_ic_other_app_ringo" />
+
+                    <TextView
+                        android:id="@+id/tv_walla"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="Wallla"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_label_ringo"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_wallla"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_wallla"/>
+
+
+                    <!-- Ring Android -->
+
+                    <ImageView
+                        android:id="@+id/img_ic_ring_android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:src="@drawable/ic_ring_android"
+                        app:layout_constraintStart_toStartOf="@+id/img_ic_wallla"
+                        app:layout_constraintTop_toBottomOf="@+id/img_ic_wallla" />
+
+                    <TextView
+                        android:id="@+id/tv_ring_android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/beviet_medium"
+                        android:text="Nhạc chuông Android"
+                        android:textColor="@color/color_131313"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_walla"
+                        app:layout_constraintTop_toTopOf="@id/img_ic_ring_android"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_ring_android"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

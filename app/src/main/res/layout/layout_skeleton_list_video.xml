@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/layout_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_duration="1500"
+            app:shimmer_highlight_alpha="0.95"
+            app:shimmer_base_alpha="0.7"
+            app:shimmer_auto_start="false"
+            android:focusable="true"
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_marginRight="@dimen/dp8"
+                    android:layout_weight="1">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:id="@+id/card_view_new_video"
+                            android:layout_width="match_parent"
+                            app:cardElevation="@dimen/dp0"
+                            android:layout_height="@dimen/dp0"
+                            app:layout_constraintDimensionRatio="H, 1:1"
+                            app:cardBackgroundColor="@color/color_DE1129"
+                            app:cardCornerRadius="@dimen/dp10"
+                            >
+
+                                <LinearLayout
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/img_add_newVideo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_item_add_new_video_home" />
+
+                                    <TextView
+                                        android:id="@+id/tv_newVideo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/dp14"
+                                        android:fontFamily="@font/beviet_medium"
+                                        android:text="@string/text_new_videos"
+                                        android:textColor="@color/white" />
+
+                                </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp16"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:paddingBottom="@dimen/dp16"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/dp16"/>-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp16"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/dp8"
+                    android:layout_marginRight="@dimen/dp16"
+                    android:layout_weight="1">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            android:paddingBottom="@dimen/dp16"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/dp16"/>-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp16"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            app:layout_constraintDimensionRatio="H,156:343"
+                            android:layout_height="@dimen/dp0"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </RelativeLayout>
+
+
+</layout>

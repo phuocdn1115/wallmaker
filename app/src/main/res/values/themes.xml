@@ -1,0 +1,65 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="FullScreenThemeWhiteIcon" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:actionMenuTextColor">@color/black</item>
+        <item name="colorPrimary">@color/transparent</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+        <item name="colorAccent">@color/transparent</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/color_131313</item>
+        <item name="android:textSize">@dimen/sp40</item>
+        <item name="fontFamily">@font/beviet_extra_bold</item>
+    </style>
+
+    <style name="collapsedTitleTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/color_131313</item>
+        <item name="android:textSize">@dimen/sp24</item>
+        <item name="android:fontFamily">@font/beviet_medium</item>
+    </style>
+
+    <style name="DialogAnimation" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowEnterAnimation">@anim/dialog_show_down</item>
+        <item name="android:windowExitAnimation">@anim/dialog_hide_up</item>
+    </style>
+
+    <style name="PositiveButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">?android:colorControlHighlight</item>
+        <item name="android:textColor">@color/color_131313</item>
+        <item name="android:textSize">@dimen/sp12</item>
+        <item name="fontFamily">@font/beviet_bold</item>
+        <item name="android:layout_height">@dimen/dp36</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/dp10</item>
+        <item name="android:layout_marginRight">@dimen/dp10</item>
+        <item name="cornerRadius">@dimen/dp10</item>
+        <item name="elevation">0dp</item>
+        <item name="iconTint">@null</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="RatingBar" parent="">
+        <item name="colorControlActivated">#FFCD3E</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+
+
+
+</resources>

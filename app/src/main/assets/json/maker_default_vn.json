@@ -1,0 +1,529 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": "1",
+        "name": "Mẹ và bé",
+        "url": "20230407/template01.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template01.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template01.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "MOVE_TRANSITION_HORIZONTAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "2",
+        "name": "Ngày của Bố",
+        "url": "20230407/template02.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template02.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template02.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "MOVE_TRANSITION_HORIZONTAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SCALE_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "GRADIENT_TRANSFER_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "3",
+        "name": "Ông bà kính yêu",
+        "url": "20230407/template03.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template03.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template03.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "MOVE_TRANSITION_HORIZONTAL_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "4",
+        "name": "Bạn bè",
+        "url": "20230407/template04.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template04.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template04.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "5",
+        "name": "Dã ngoại bên nhau",
+        "url": "20230407/template05.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template05.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template05.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "MOVE_TRANSITION_HORIZONTAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "MOVE_TRANSITION_HORIZONTAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "6",
+        "name": "Tình yêu lãng mạn",
+        "url": "20230407/template06.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template06.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template06.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "7",
+        "name": "Mãi mãi bên nhau",
+        "url": "20230407/template07.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template07.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template07.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SCALE_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "GRADIENT_TRANSFER_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SCALE_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "8",
+        "name": "Chúc mừng sinh nhật",
+        "url": "20230407/template08.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template08.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template08.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "THAW_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "9",
+        "name": "Trẻ em đáng yêu",
+        "url": "20230407/template09.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template09.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template09.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "THAW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "10",
+        "name": "Sum vầy",
+        "url": "20230407/template10.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template10.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template10.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "SCALE_TRANS_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "FIT_CENTER_SCALE_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 1,
+            "segmentType": "GRADIENT_TRANSFER_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SCALE_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "THAW_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      },
+      {
+        "id": "11",
+        "name": "Gia đình nhỏ",
+        "url": "20230407/template11.mp4",
+        "thumbUrlImg": "thumbnails/20230407/template11.jpg",
+        "thumbUrlVideo": "thumbs/20230407/template11.mp4",
+        "script": [
+          {
+            "index": 0,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 0,
+            "segmentType": "WINDOW_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 1,
+            "segmentType": "SCALE_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 2,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 2,
+            "segmentType": "MOVE_TRANSITION_VERTICAL_SEGMENT",
+            "duration": 2000
+          },
+          {
+            "index": 3,
+            "segmentType": "FIT_CENTER_SEGMENT",
+            "duration": 1500
+          },
+          {
+            "index": 3,
+            "segmentType": "THAW_SEGMENT",
+            "duration": 2000
+          }
+        ],
+        "colorId": null,
+        "colorCode": "#9b7e72",
+        "type": "templateItem"
+      }
+    ],
+    "nextPageNumber": 2,
+    "currentPageNumber": 1
+  },
+  "status": {
+    "statusCode": 200,
+    "message": "Success"
+  }
+}

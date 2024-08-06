@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_bottom_sheet"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp20">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp23"
+                android:layout_marginTop="@dimen/dp30"
+                android:layout_marginEnd="@dimen/dp23"
+                android:fontFamily="@font/beviet_semi_bold"
+                android:gravity="center"
+                android:text="@string/txt_wanna_delete"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp23"
+                android:layout_marginTop="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp23"
+                android:fontFamily="@font/beviet_semi_bold"
+                android:gravity="center"
+                android:text="@string/txt_warning_delete"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp23"
+                android:layout_marginTop="@dimen/dp30"
+                android:layout_marginEnd="@dimen/dp23"
+                android:background="@drawable/bg_positive_btn"
+                android:fontFamily="@font/beviet_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/dp13"
+                android:text="@string/txt_no"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+            <TextView
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp23"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp23"
+                android:fontFamily="@font/beviet_semi_bold"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dp13"
+                android:text="@string/txt_confirm_delete"
+                android:textColor="@color/color_DE1129"
+                android:textSize="@dimen/sp14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_cancel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

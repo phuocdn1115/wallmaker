@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_bottom_sheet"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/dp20">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp21"
+                        android:layout_marginTop="@dimen/dp30"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:text="@string/txt_setting_image_to"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/btn_home_screen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp22"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/dp13"
+                        android:text="@string/txt_home_screen"
+                        android:textColor="@color/color_DE1129"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+                    <TextView
+                        android:id="@+id/btn_lock_screen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp22"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/dp13"
+                        android:text="@string/txt_lock_screen"
+                        android:textColor="@color/color_DE1129"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintTop_toBottomOf="@id/btn_home_screen" />
+
+                    <TextView
+                        android:id="@+id/btn_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp22"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp35"
+                        android:fontFamily="@font/beviet_semi_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/dp13"
+                        android:text="@string/txt_all"
+                        android:textColor="@color/color_DE1129"
+                        android:textSize="@dimen/sp14"
+                        app:layout_constraintTop_toBottomOf="@id/btn_lock_screen" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>

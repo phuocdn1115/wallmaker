@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/view_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginBottom="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        app:cardCornerRadius="@dimen/dp10">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/img_video_template"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                />
+            <TextView
+                android:layout_margin="@dimen/dp8"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/txt_template"
+                app:drawableStartCompat="@drawable/ic_template"
+                android:drawablePadding="@dimen/dp5"
+                android:padding="@dimen/dp7"
+                android:background="@drawable/bg_ic_template"
+                android:textSize="@dimen/sp10"
+                android:textColor="@color/white"
+                android:fontFamily="@font/beviet_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_infomation_user_video"
+                android:paddingTop="@dimen/dp30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+
+                <TextView
+                    android:id="@+id/tv_name_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/beviet_bold"
+                    android:maxLines="2"
+                    android:paddingHorizontal="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp5"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:textSize="@dimen/sp14" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
