@@ -26,11 +26,11 @@ if (project.file(keystorePropertiesFile).exists()) {
 }
 
 android {
-    namespace 'com.app.photomaker'
+    namespace 'com.app.imagetovideo'
     compileSdk rootProject.ext.androidVersion
 
     defaultConfig {
-        applicationId "com.app.photomaker"
+        applicationId "com.app.imagetovideo"
         minSdk rootProject.ext.minSupportSDKVersion
         targetSdk rootProject.ext.androidVersion
         versionName "1.0.0"

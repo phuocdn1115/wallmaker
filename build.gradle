@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        androidVersion = 32
+        androidVersion = 33
         minSupportSDKVersion = 26
         kotlin_version = "1.6.10"
         recyclerview_version = '1.2.1'

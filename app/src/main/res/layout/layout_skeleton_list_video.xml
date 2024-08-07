@@ -81,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:paddingBottom="@dimen/dp16"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             app:layout_constraintDimensionRatio="H,156:343"
@@ -93,7 +93,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             app:layout_constraintDimensionRatio="H,156:343"
@@ -105,7 +105,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             app:layout_constraintDimensionRatio="H,156:343"
@@ -123,7 +123,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             android:paddingBottom="@dimen/dp16"
@@ -137,7 +137,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             app:layout_constraintDimensionRatio="H,156:343"
@@ -149,7 +149,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.app.photomaker.ui.skeleton.ItemVideoSkeleton
+                        <com.app.imagetovideo.ui.skeleton.ItemVideoSkeleton
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="match_parent"
                             app:layout_constraintDimensionRatio="H,156:343"

@@ -110,13 +110,13 @@
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/dp30"
                 android:overScrollMode="never"/>
-            <com.app.photomaker.ui.loadmoreview.LoadMoreView
+            <com.app.imagetovideo.ui.loadmoreview.LoadMoreView
                 android:id="@+id/load_more_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-        <com.app.photomaker.ui.skeleton.HomeScreenSkeleton
+        <com.app.imagetovideo.ui.skeleton.HomeScreenSkeleton
             android:id="@+id/viewLoading"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
