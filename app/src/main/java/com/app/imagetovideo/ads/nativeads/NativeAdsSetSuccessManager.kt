@@ -4,22 +4,19 @@ import android.content.Context
 import android.util.Log
 import com.app.imagetovideo.aplication.ApplicationContext
 import com.app.imagetovideo.model.NativeAds
-import com.app.imagetovideo.tracking.EventTrackingManager
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class NativeAdsSetSuccessManager @Inject constructor(
-    mContext : Context,
-    mEventTrackingManager: EventTrackingManager
+    mContext : Context
 ) : BaseNativeAdsManager() {
     override val TAG: String = NativeAdsSetSuccessManager::class.simpleName.toString()
     override val context: Context = mContext
     override val nativeAdsQueueSize: Int = ApplicationContext.getAdsContext().nativeQueueSize
     override val nativeAdQueue: Queue<NativeAds> = LinkedList()
     override fun adsNativeId(): String = ApplicationContext.getAdsContext().adsNativeInSetSuccessId
-    override val eventTrackingManager: EventTrackingManager = mEventTrackingManager
 
     private var nativeAdRemote: NativeAds? = null
     fun getNativeAd(): NativeAds? {

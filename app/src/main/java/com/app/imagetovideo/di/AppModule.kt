@@ -13,7 +13,6 @@ import com.app.imagetovideo.base.ConnectionLiveData
 import com.app.imagetovideo.base.FirebaseManager
 import com.app.imagetovideo.download.DownloadWallpaperManager
 import com.app.imagetovideo.navigation.NavigationManager
-import com.app.imagetovideo.tracking.EventTrackingManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,44 +46,38 @@ object AppModule {
     @Singleton
     @Provides
     fun providerNativeAdsInHomeManager(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = NativeAdsInHomeManager(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = NativeAdsInHomeManager(context)
 
     @Singleton
     @Provides
     fun providerNativeAdsSetSuccessManager(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = NativeAdsSetSuccessManager(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = NativeAdsSetSuccessManager(context)
 
     @Singleton
     @Provides
     fun providerNativeAdsInFrameSaving(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = NativeAdsInFrameSaving(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = NativeAdsInFrameSaving(context)
 
     @Singleton
     @Provides
     fun providerBannerAds(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = BannerAdsManager(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = BannerAdsManager(context)
 
     @Singleton
     @Provides
     fun providerOpenAppAdsManager(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = OpenAppAdsManager(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = OpenAppAdsManager(context)
 
     @Singleton
     @Provides
     fun providerRewardedAdsManager(
-        @ApplicationContext context: Context,
-        eventTrackingManager: EventTrackingManager
-    ) = RewardedAdsManager(context, eventTrackingManager)
+        @ApplicationContext context: Context
+    ) = RewardedAdsManager(context)
 
     @Singleton
     @Provides
@@ -103,10 +96,4 @@ object AppModule {
     fun providerFirebaseManager(
         @ApplicationContext context: Context
     ) = FirebaseManager(context)
-
-    @Singleton
-    @Provides
-    fun providerEventTrackingManager(
-        @ApplicationContext context: Context
-    ) = EventTrackingManager(context)
 }

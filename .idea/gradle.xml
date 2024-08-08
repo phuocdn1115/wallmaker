@@ -11,7 +11,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/exoplayer-core" />
-            <option value="$PROJECT_DIR$/maker-tracking" />
             <option value="$PROJECT_DIR$/render-movie" />
             <option value="$PROJECT_DIR$/wall-exoplayer" />
           </set>

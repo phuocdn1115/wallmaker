@@ -10,14 +10,13 @@ import android.os.Environment
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
-import com.alo.ringo.tracking.base_event.StateDownloadType
-import com.app.imagetovideo.base.Result
 import com.app.imagetovideo.R
 import com.app.imagetovideo.WallpaperMakerApp
 import com.app.imagetovideo.ads.nativeads.NativeAdsSetSuccessManager
 import com.app.imagetovideo.base.BaseActivity
 import com.app.imagetovideo.base.BaseLoadingView
 import com.app.imagetovideo.base.ConnectionLiveData
+import com.app.imagetovideo.base.Result
 import com.app.imagetovideo.base.handler.GlideHandler
 import com.app.imagetovideo.base.handler.WallpaperHandler
 import com.app.imagetovideo.data.realm_model.WallpaperDownloaded
@@ -28,13 +27,16 @@ import com.app.imagetovideo.enums.WallpaperTypeSetting
 import com.app.imagetovideo.eventbus.MessageEvent
 import com.app.imagetovideo.ext.CoroutineExt
 import com.app.imagetovideo.live.LiveWallpaperService
-import com.app.imagetovideo.tracking.EventTrackingManager
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G2_SET_VIDEO
 import com.app.imagetovideo.ui.dialog.DialogChooseTypeSettingBottomSheet
 import com.app.imagetovideo.ui.dialog.DialogSetImageWallpaperSuccess
 import com.app.imagetovideo.ui.dialog.DialogSetVideoWallpaperSuccess
-import com.app.imagetovideo.utils.*
+import com.app.imagetovideo.utils.EXTRA_WALLPAPER_DOWNLOADED
+import com.app.imagetovideo.utils.FileUtils
+import com.app.imagetovideo.utils.KeyboardUtils
+import com.app.imagetovideo.utils.StatusBarUtils
+import com.app.imagetovideo.utils.ToastUtil
 import com.app.imagetovideo.utils.extension.decodeBitmap
+import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.blankj.utilcode.util.NetworkUtils
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.metadata.Metadata
@@ -57,9 +59,6 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
 
     @Inject
     lateinit var connectionLiveData: ConnectionLiveData
-
-    @Inject
-    lateinit var eventTrackingManager: EventTrackingManager
 
     private val setWallpaperActivityVM: SetWallpaperActivityVM by viewModels()
     var setVideoWallpaperSuccessDialog: DialogSetVideoWallpaperSuccess? = null
@@ -190,48 +189,18 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
     override fun getLayoutLoading(): BaseLoadingView? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RequestCode.SET_WALLPAPER_LIVE.requestCode) {
             if (resultCode == RESULT_OK) {
                 CoroutineExt.runOnMainAfterDelay {
                     showSetVideoSuccessDialog()
                 }
                 setWallpaperActivityVM.saveURLWallpaperLiveSet(dataWallpaper?.pathInStorage ?: "")
-                if (dataWallpaper?.isTemplate == true && dataWallpaper != null) {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = dataWallpaper!!.idTemplate,
-                        contentType = "template",
-                        status = StateDownloadType.OK.value
-                    )
-                } else {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = "",
-                        contentType = "create",
-                        status = StateDownloadType.OK.value
-                    )
-                }
+
             }
             if (resultCode == RESULT_CANCELED && Build.VERSION.SDK_INT <= 27 || resultCode != RESULT_CANCELED && resultCode != RESULT_OK) {
                 CoroutineExt.runOnMainAfterDelay {
                     ToastUtil.showToast(resources.getString(R.string.txt_set_wallpaper_error) , this)
-                }
-                if (dataWallpaper?.isTemplate == true && dataWallpaper != null) {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = dataWallpaper!!.idTemplate,
-                        contentType = "template",
-                        status = StateDownloadType.NOK.value,
-                        comment = "Error"
-                    )
-                } else {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = "",
-                        contentType = "create",
-                        status = StateDownloadType.NOK.value,
-                        comment = "Error"
-                    )
                 }
             }
         }

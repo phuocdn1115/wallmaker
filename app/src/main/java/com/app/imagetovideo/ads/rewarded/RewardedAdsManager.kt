@@ -3,12 +3,7 @@ package com.app.imagetovideo.ads.rewarded
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_ADS_LOAD
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_ADS_SHOW
-import com.alo.ringo.tracking.base_event.AdsType
-import com.alo.ringo.tracking.base_event.StatusType
 import com.app.imagetovideo.aplication.ApplicationContext
-import com.app.imagetovideo.tracking.EventTrackingManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -22,8 +17,7 @@ import javax.inject.Singleton
 
 @Singleton
 class RewardedAdsManager @Inject constructor(
-    private val context: Context,
-    private val eventTrackingManager: EventTrackingManager
+    private val context: Context
 ) {
     private val TAG = RewardedAdsManager::class.simpleName
     private val rewardAdQueue: Queue<RewardedAd> = LinkedList()
@@ -42,25 +36,11 @@ class RewardedAdsManager @Inject constructor(
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError) {
             Log.d(TAG, "LOAD_ADS_REWARDED::Ads rewarded show failure: $adError.")
-            eventTrackingManager.sendAdsEvent(
-                eventName = EVENT_EV2_G1_ADS_SHOW,
-                contentId = ApplicationContext.getAdsContext().adsRewardInPreviewId,
-                adsType = AdsType.REWARDED.value,
-                isLoad = StatusType.SUCCESS.value,
-                show = StatusType.FAIL.value
-            )
             loadRewardedAds(ApplicationContext.getAdsContext().retry)
         }
 
         override fun onAdShowedFullScreenContent() {
             Log.d(TAG, "LOAD_ADS_REWARDED::Ads rewarded showing...")
-            eventTrackingManager.sendAdsEvent(
-                eventName = EVENT_EV2_G1_ADS_SHOW,
-                contentId = ApplicationContext.getAdsContext().adsRewardInPreviewId,
-                adsType = AdsType.REWARDED.value,
-                isLoad = StatusType.SUCCESS.value,
-                show = StatusType.SUCCESS.value
-            )
         }
     }
 
@@ -77,23 +57,11 @@ class RewardedAdsManager @Inject constructor(
             object : RewardedAdLoadCallback() {
                 override fun onAdLoaded(rewardedAd: RewardedAd) {
                     Log.d(TAG, "LOAD_ADS_REWARDED::Ads rewarded load success")
-                    eventTrackingManager.sendAdsEvent(
-                        eventName = EVENT_EV2_G1_ADS_LOAD,
-                        contentId = ApplicationContext.getAdsContext().adsRewardInPreviewId,
-                        adsType = AdsType.REWARDED.value,
-                        isLoad = StatusType.SUCCESS.value
-                    )
                     if (rewardAdQueue.size < ApplicationContext.getAdsContext().rewardQueueSize) rewardAdQueue.add(rewardedAd)
                 }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     Log.d(TAG, adError.toString())
-                    eventTrackingManager.sendAdsEvent(
-                        eventName = EVENT_EV2_G1_ADS_LOAD,
-                        contentId = ApplicationContext.getAdsContext().adsRewardInPreviewId,
-                        adsType = AdsType.REWARDED.value,
-                        isLoad = StatusType.FAIL.value
-                    )
                     if (mRetry != 0) loadRewardedAds(--mRetry)
                 }
             })

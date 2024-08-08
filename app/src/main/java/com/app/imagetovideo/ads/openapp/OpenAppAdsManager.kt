@@ -8,13 +8,8 @@ import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_ADS_LOAD
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_ADS_SHOW
-import com.alo.ringo.tracking.base_event.AdsType
-import com.alo.ringo.tracking.base_event.StatusType
 import com.app.imagetovideo.WallpaperMakerApp
 import com.app.imagetovideo.aplication.ApplicationContext
-import com.app.imagetovideo.tracking.EventTrackingManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -27,8 +22,7 @@ import javax.inject.Singleton
 
 @Singleton
 class OpenAppAdsManager @Inject constructor(
-    private val context: Context,
-    private val eventTrackingManager: EventTrackingManager
+    private val context: Context
 ) {
     private val TAG = OpenAppAdsManager::class.simpleName
     private var currentActivity: Activity? = null
@@ -84,23 +78,11 @@ class OpenAppAdsManager @Inject constructor(
                     isLoadingAd = false
                     loadTime = Date().time
                     Log.d(TAG, "LOAD_ADS_OPEN_APP::Ads open app load success")
-                    eventTrackingManager.sendAdsEvent(
-                        eventName = EVENT_EV2_G1_ADS_LOAD,
-                        contentId = ApplicationContext.getAdsContext().adsOpenAdsId,
-                        adsType = AdsType.OPEN.value,
-                        isLoad = StatusType.SUCCESS.value
-                    )
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     isLoadingAd = false
                     Log.d(TAG, "LOAD_ADS_OPEN_APP::Ads open app load failure. \n Reason: $error")
-                    eventTrackingManager.sendAdsEvent(
-                        eventName = EVENT_EV2_G1_ADS_LOAD,
-                        contentId = ApplicationContext.getAdsContext().adsOpenAdsId,
-                        adsType = AdsType.OPEN.value,
-                        isLoad = StatusType.FAIL.value
-                    )
                     if (mRetry != 0) loadOpenAppAds(--mRetry)
                 }
             })
@@ -133,26 +115,12 @@ class OpenAppAdsManager @Inject constructor(
                 appOpenAd = null
                 isShowingAd = false
                 Log.d(TAG, "LOAD_ADS_OPEN_APP::Ads open app show error: " + adError.message)
-                eventTrackingManager.sendAdsEvent(
-                    eventName = EVENT_EV2_G1_ADS_SHOW,
-                    contentId = ApplicationContext.getAdsContext().adsOpenAdsId,
-                    adsType = AdsType.OPEN.value,
-                    isLoad = StatusType.SUCCESS.value,
-                    show = StatusType.FAIL.value
-                )
                 loadOpenAppAds(ApplicationContext.getAdsContext().retry)
             }
 
             /** Called when fullscreen content is shown. */
             override fun onAdShowedFullScreenContent() {
                 Log.d(TAG, "LOAD_ADS_OPEN_APP::Ads open app showing.")
-                eventTrackingManager.sendAdsEvent(
-                    eventName = EVENT_EV2_G1_ADS_SHOW,
-                    contentId = ApplicationContext.getAdsContext().adsOpenAdsId,
-                    adsType = AdsType.OPEN.value,
-                    isLoad = StatusType.SUCCESS.value,
-                    show = StatusType.SUCCESS.value
-                )
             }
         }
         isShowingAd = true

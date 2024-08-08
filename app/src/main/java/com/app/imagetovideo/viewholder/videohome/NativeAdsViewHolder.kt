@@ -55,7 +55,7 @@ class NativeAdsViewHolder(itemBinding: ItemNativeAdsVideoHomeBinding, context: C
         if(data.icon == null){
             (adView.iconView as ShapeableImageView).isHidden = true
         } else {
-            (adView.iconView as ShapeableImageView)?.setImageDrawable(data?.icon.drawable)
+            (adView.iconView as ShapeableImageView).setImageDrawable(data.icon!!.drawable)
             (adView.iconView as ShapeableImageView).isHidden = false
         }
 

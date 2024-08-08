@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import com.alo.ringo.tracking.base_event.StateDownloadType
 import com.app.imagetovideo.R
 import com.app.imagetovideo.ads.nativeads.NativeAdsSetSuccessManager
 import com.app.imagetovideo.base.BaseFragment
@@ -24,12 +23,16 @@ import com.app.imagetovideo.enums.RequestCode
 import com.app.imagetovideo.eventbus.MessageEvent
 import com.app.imagetovideo.ext.CoroutineExt
 import com.app.imagetovideo.navigation.NavigationManager
-import com.app.imagetovideo.tracking.EventTrackingManager
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G2_SET_VIDEO
 import com.app.imagetovideo.ui.dialog.DialogChooseTypeSettingBottomSheet
 import com.app.imagetovideo.ui.dialog.DialogSetImageWallpaperSuccess
 import com.app.imagetovideo.ui.dialog.DialogSetVideoWallpaperSuccess
-import com.app.imagetovideo.utils.*
+import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
+import com.app.imagetovideo.utils.EXTRA_TEMPLATE
+import com.app.imagetovideo.utils.FileUtils
+import com.app.imagetovideo.utils.KeyboardUtils
+import com.app.imagetovideo.utils.StatusBarUtils
+import com.app.imagetovideo.utils.ToastUtil
+import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.app.imagetovideo.video.PhotoMovieFactoryUsingTemplate
 import com.hw.photomovie.PhotoMovie
 import com.hw.photomovie.PhotoMovieFactory
@@ -40,7 +43,6 @@ import com.hw.photomovie.model.SimplePhotoData
 import com.hw.photomovie.render.GLSurfaceMovieRenderer
 import com.hw.photomovie.render.GLTextureMovieRender
 import com.hw.photomovie.timer.IMovieTimer
-import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import dagger.hilt.android.AndroidEntryPoint
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.greenrobot.eventbus.EventBus
@@ -54,9 +56,6 @@ class SetWallpaperFragment : BaseFragment<LayoutSetWallpaperBinding>() {
 
     @Inject
     lateinit var nativeAdsSetSuccessManager: NativeAdsSetSuccessManager
-
-    @Inject
-    lateinit var eventTrackingManager: EventTrackingManager
 
     val editorVM: EditorVM by activityViewModels()
     var absolutePathFile: String? = null
@@ -286,42 +285,10 @@ class SetWallpaperFragment : BaseFragment<LayoutSetWallpaperBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RequestCode.SET_WALLPAPER_LIVE.requestCode) {
             if (resultCode == RESULT_OK) {
-                if (template != null) {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = template!!.id.toString(),
-                        contentType = "template",
-                        status = StateDownloadType.OK.value
-                    )
-                } else {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = "",
-                        contentType = "create",
-                        status = StateDownloadType.OK.value
-                    )
-                }
                 showSetVideoSuccessDialog()
                 editorVM.saveURLWallpaperLiveSet(absolutePathFile ?: "")
             }
             if (resultCode == RESULT_CANCELED && Build.VERSION.SDK_INT <= 27 || resultCode != RESULT_CANCELED && resultCode != RESULT_OK) {
-                if (template != null) {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = template!!.id.toString(),
-                        contentType = "template",
-                        status = StateDownloadType.NOK.value,
-                        comment = "Error"
-                    )
-                } else {
-                    eventTrackingManager.sendContentEvent(
-                        eventName = EVENT_EV2_G2_SET_VIDEO,
-                        contentId = "",
-                        contentType = "create",
-                        status = StateDownloadType.NOK.value,
-                        comment = "Error"
-                    )
-                }
                 CoroutineExt.runOnMainAfterDelay {
                     ToastUtil.showToast(resources.getString(R.string.txt_set_wallpaper_error), requireContext())
                 }

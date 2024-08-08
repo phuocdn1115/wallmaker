@@ -6,17 +6,10 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_REWARD
-import com.alo.ringo.tracking.base_event.AdsRewardType
-import com.alo.ringo.tracking.base_event.StateDownloadType
-import com.alo.ringo.tracking.base_event.StatusType
 import com.app.imagetovideo.R
 import com.app.imagetovideo.RealmManager
 import com.app.imagetovideo.ads.nativeads.NativeAdsInFrameSaving
 import com.app.imagetovideo.ads.rewarded.RewardedAdsManager
-import com.app.imagetovideo.aplication.ApplicationContext
-import com.app.imagetovideo.aplication.ApplicationContext.getAdsContext
 import com.app.imagetovideo.aplication.ApplicationContext.sessionContext
 import com.app.imagetovideo.base.BaseFragment
 import com.app.imagetovideo.base.BaseLoadingView
@@ -30,18 +23,14 @@ import com.app.imagetovideo.enums.EditorTabType
 import com.app.imagetovideo.enums.WallpaperType
 import com.app.imagetovideo.ext.CoroutineExt
 import com.app.imagetovideo.navigation.NavigationManager
-import com.app.imagetovideo.tracking.EventTrackingManager
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G2_SAVE_VIDEO
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G5_LOAD_PREVIEW
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G8_CLICK_BTN_CHANGE_ANIMATION
 import com.app.imagetovideo.ui.dialog.AskViewAdsAgainBottomSheet
 import com.app.imagetovideo.ui.dialog.AskViewAdsBottomSheet
 import com.app.imagetovideo.ui.dialog.DialogCancelPreview
+import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import com.app.imagetovideo.ui.screens.edit_screen.preview_wallpaper.*
 import com.app.imagetovideo.utils.EXTRA_TEMPLATE
 import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.utils.ToastUtil
-import com.app.imagetovideo.utils.extension.getDeviceId
 import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.app.imagetovideo.video.PhotoMovieFactoryUsingTemplate
 import com.hw.photomovie.PhotoMovie
@@ -70,9 +59,6 @@ PreviewVideoFragment: BaseFragment<LayoutPreviewBinding>() {
 
     @Inject
     lateinit var realmManager: RealmManager
-
-    @Inject
-    lateinit var eventTrackingManager: EventTrackingManager
 
     val editorVM: EditorVM by activityViewModels()
     val previewVM: PreviewVM by activityViewModels()
@@ -237,7 +223,6 @@ PreviewVideoFragment: BaseFragment<LayoutPreviewBinding>() {
             activity?.onBackPressed()
         }
         binding.btnChangeTemplate.setSafeOnClickListener {
-            eventTrackingManager.sendOtherEvent(EVENT_EV2_G8_CLICK_BTN_CHANGE_ANIMATION)
             editorVM.setSelectedTemplateVideoData()
             viewPagerEditor?.setCurrentItem(EditorTabType.TEMPLATE_VIDEO_TAB.position, true)
         }

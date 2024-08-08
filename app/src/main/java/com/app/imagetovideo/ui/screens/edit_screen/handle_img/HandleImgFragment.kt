@@ -9,30 +9,27 @@ import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.app.imagetovideo.R
 import com.app.imagetovideo.ads.banner.BannerAdsManager
+import com.app.imagetovideo.aplication.ApplicationContext.sessionContext
 import com.app.imagetovideo.base.BaseFragment
 import com.app.imagetovideo.base.BaseLoadingView
 import com.app.imagetovideo.data.model.Template
+import com.app.imagetovideo.databinding.LayoutHandleImageBinding
 import com.app.imagetovideo.enums.DescriptionControlTabType
 import com.app.imagetovideo.enums.EditorTabType
 import com.app.imagetovideo.enums.HandleImageMode
 import com.app.imagetovideo.eventbus.HandleImageEvent
 import com.app.imagetovideo.model.ImageSelected
+import com.app.imagetovideo.ui.adapters.ViewPagerFragmentAdapter
+import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import com.app.imagetovideo.ui.screens.edit_screen.crop_img.CropImgFragment
 import com.app.imagetovideo.ui.screens.edit_screen.filter_bright.FilterBrightnessFragment
+import com.app.imagetovideo.ui.screens.edit_screen.list_img_selected.ListImgSelectedFragment
 import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.utils.extension.heightScreen
 import com.app.imagetovideo.utils.extension.widthScreen
 import com.app.imagetovideo.utils.setSafeOnClickListener
-import com.app.imagetovideo.R
-import com.app.imagetovideo.databinding.LayoutHandleImageBinding
-import com.app.imagetovideo.aplication.ApplicationContext.sessionContext
-import com.app.imagetovideo.tracking.EventTrackingManager
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G8_CLICK_BTN_FILTER
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G8_CLICK_BTN_ROTATE
-import com.app.imagetovideo.ui.adapters.ViewPagerFragmentAdapter
-import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
-import com.app.imagetovideo.ui.screens.edit_screen.list_img_selected.ListImgSelectedFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -42,9 +39,6 @@ import javax.inject.Inject
 class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
     @Inject
     lateinit var bannerAdsManager: BannerAdsManager
-
-    @Inject
-    lateinit var eventTrackingManager: EventTrackingManager
 
     private val editorVM: EditorVM by activityViewModels()
     private var handleImageMode = HandleImageMode.MODE_CROP
@@ -110,11 +104,9 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
 
     override fun initListener() {
         binding.layoutControlbar.btnRotate.setSafeOnClickListener {
-            eventTrackingManager.sendOtherEvent(EVENT_EV2_G8_CLICK_BTN_ROTATE)
             EventBus.getDefault().post(HandleImageEvent(HandleImageEvent.ROTATE_IMAGE_EVENT))
         }
         binding.layoutControlbar.btnFilter.setSafeOnClickListener {
-            eventTrackingManager.sendOtherEvent(EVENT_EV2_G8_CLICK_BTN_FILTER)
             EventBus.getDefault().post(HandleImageEvent(HandleImageEvent.CROP_SAVE_IMAGE_EVENT))
         }
         binding.toolbar.btnBack.setSafeOnClickListener {

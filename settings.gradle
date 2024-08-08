@@ -1,6 +1,5 @@
 rootProject.name = "photomaker"
 include ':app'
 include ':exoplayer-core'
-include ':maker-tracking'
 include ':render-movie'
 include ':wall-exoplayer'

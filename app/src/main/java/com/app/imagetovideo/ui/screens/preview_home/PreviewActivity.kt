@@ -7,24 +7,19 @@ import android.net.Uri
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import com.alo.ringo.tracking.DefaultEventDefinition.Companion.EVENT_EV2_G1_REWARD
-import com.alo.ringo.tracking.base_event.AdsRewardType
-import com.alo.ringo.tracking.base_event.StatusType
 import com.app.imagetovideo.R
-import com.app.imagetovideo.base.Result
 import com.app.imagetovideo.ads.rewarded.RewardedAdsManager
-import com.app.imagetovideo.aplication.ApplicationContext
 import com.app.imagetovideo.base.BaseActivity
 import com.app.imagetovideo.base.BaseLoadingView
 import com.app.imagetovideo.base.ConnectionLiveData
 import com.app.imagetovideo.base.FirebaseManager
+import com.app.imagetovideo.base.Result
 import com.app.imagetovideo.base.handler.GlideHandler
 import com.app.imagetovideo.data.model.Wallpaper
 import com.app.imagetovideo.databinding.ActivityPreviewBinding
 import com.app.imagetovideo.enums.RequestCode
 import com.app.imagetovideo.enums.WallpaperType
 import com.app.imagetovideo.navigation.NavigationManager
-import com.app.imagetovideo.tracking.EventTrackingManager
 import com.app.imagetovideo.ui.dialog.AskViewAdsAgainBottomSheet
 import com.app.imagetovideo.ui.dialog.AskViewAdsBottomSheet
 import com.app.imagetovideo.ui.dialog.DialogRequestPermissionStorage
@@ -34,8 +29,8 @@ import com.app.imagetovideo.utils.ToastUtil
 import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.blankj.utilcode.util.NetworkUtils
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.text.Cue
 import com.google.android.exoplayer2.metadata.Metadata
+import com.google.android.exoplayer2.text.Cue
 import dagger.hilt.android.AndroidEntryPoint
 import im.ene.toro.exoplayer.ExoPlayable
 import im.ene.toro.exoplayer.Playable
@@ -61,9 +56,6 @@ class PreviewActivity : BaseActivity<ActivityPreviewBinding>() {
     @Inject
     lateinit var connectionLiveData: ConnectionLiveData
 
-    @Inject
-    lateinit var eventTrackingManager: EventTrackingManager
-
     private val previewActivityVM: PreviewActivityVM by viewModels()
     var askViewAdsBottomSheet: AskViewAdsBottomSheet? = null
     var askViewAdsAgainBottomSheet: AskViewAdsAgainBottomSheet? = null
@@ -78,13 +70,6 @@ class PreviewActivity : BaseActivity<ActivityPreviewBinding>() {
     private val onDismissRewardAdCallBack = object : () -> Unit {
         override fun invoke() {
             showProgressDownloadVideo()
-            eventTrackingManager.sendRewardAdsEvent(
-                eventName = EVENT_EV2_G1_REWARD,
-                contentId = ApplicationContext.getAdsContext().adsRewardInPreviewId,
-                inPopup = AdsRewardType.EMPTY.value,
-                approve = StatusType.SUCCESS.value,
-                status = StatusType.SUCCESS.value
-            )
         }
     }
 

@@ -28,9 +28,6 @@ import com.app.imagetovideo.model.Data
 import com.app.imagetovideo.model.NativeAds
 import com.app.imagetovideo.model.NewVideo
 import com.app.imagetovideo.navigation.NavigationManager
-import com.app.imagetovideo.tracking.EventTrackingManager
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G2_CLICK_CREATE_VIDEO
-import com.app.imagetovideo.tracking.MakerEventDefinition.Companion.EVENT_EV2_G2_CLICK_TEMPLATE
 import com.app.imagetovideo.ui.adapters.VideoInHomeAdapter
 import com.app.imagetovideo.ui.dialog.DialogConfirmDeleteVideo
 import com.app.imagetovideo.ui.dialog.DialogRequestPermissionStorage
@@ -42,10 +39,9 @@ import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.util.*
-import kotlin.math.abs
+import java.util.LinkedList
 import javax.inject.Inject
-import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class VideosFragment : BaseFragment<LayoutVideoBinding>() {
