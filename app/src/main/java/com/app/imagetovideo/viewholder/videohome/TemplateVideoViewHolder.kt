@@ -1,5 +1,6 @@
 package com.app.imagetovideo.viewholder.videohome
 
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,17 +22,19 @@ class TemplateVideoViewHolder(
         binding.viewParent.setCardBackgroundColor(CommonUtils.randomColor())
     }
 
-    fun bind(data : Template, position: Int){
+    fun bind(data : Template, position: Int) {
         binding.tvNameTemplate.text = data.name
-        binding.viewParent.setCardBackgroundColor(data.colorCode?.getColor() ?: CommonUtils.randomColor())
-        binding.viewParent.post{
-            GlideHandler.setImageFormUrlWithCallBack(binding.imgVideoTemplate, "${ApplicationContext.getNetworkContext().videoURL}${data.thumbUrlImageString()}"){
-                binding.imgVideoTemplate.scaleType = ImageView.ScaleType.CENTER_CROP
+        binding.viewParent.setCardBackgroundColor(
+            data.colorCode?.getColor() ?: CommonUtils.randomColor()
+        )
+        binding.viewParent.post {
+            GlideHandler.setImageFormDrawableResource(
+                binding.imgVideoTemplate,
+                data.colorCode?.getColor() ?: CommonUtils.randomColor()
+            )
+            binding.root.setSafeOnClickListener {
+                onClickTemplate.invoke(position, data)
             }
         }
-        binding.root.setSafeOnClickListener {
-            onClickTemplate.invoke(position, data)
-        }
     }
-
 }

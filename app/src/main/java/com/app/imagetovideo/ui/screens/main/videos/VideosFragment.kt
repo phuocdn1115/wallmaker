@@ -3,8 +3,10 @@ package com.app.imagetovideo.ui.screens.main.videos
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.imagetovideo.R
@@ -46,7 +48,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class VideosFragment : BaseFragment<LayoutVideoBinding>(){
+class VideosFragment : BaseFragment<LayoutVideoBinding>() {
 
     @Inject
     lateinit var openAppAdsManager: OpenAppAdsManager
@@ -59,14 +61,33 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
 
     @Inject
     lateinit var nativeAdsInHomeManager: NativeAdsInHomeManager
+    val activityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            var isGranted = true
+            permissions.forEach{
+                if (!it.value)
+                    isGranted = false
+            }
+            Log.i("CHECK_PERMISSION_GRANTED", "$isGranted ")
+            if (isGranted) {
+                navigationManager.navigationToEditorScreen()
+                requestPermissionStorageDialog?.dismiss()
+            } else {
+                ToastUtil.showToast(
+                    resources.getString(R.string.txt_explain_permission_storage),
+                    requireContext()
+                )
+                requestPermissionStorageDialog?.dismiss()
+            }
+        }
 
     private val mainVM: MainVM by activityViewModels()
     var requestPermissionStorageDialog: DialogRequestPermissionStorage? = null
     private var dataListVideo = arrayListOf<Data>()
-    private lateinit var adapterVideosInHome : VideoInHomeAdapter
+    private lateinit var adapterVideosInHome: VideoInHomeAdapter
     private val listVideoUserCreated = LinkedList<Data>()
-    private var currentPositionItemClicked: Int?= 0
-    var deleteVideoDialog : DialogConfirmDeleteVideo?= null
+    private var currentPositionItemClicked: Int? = 0
+    var deleteVideoDialog: DialogConfirmDeleteVideo? = null
 
     companion object {
         fun newInstance(): VideosFragment {
@@ -102,7 +123,36 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
 
     override fun observerLiveData() {
         mainVM.apply {
-            listVideoUserResult.observe(this@VideosFragment){
+            dataHomeResult.observe(this@VideosFragment) { result ->
+                when (result) {
+                    is Result.InProgress -> {
+                        if (dataListVideo.isEmpty())
+                            showLoading(true)
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false) {
+                            myProcessData(result.data)
+                            adapterVideosInHome.notifyDataSetChanged()
+                        }
+                        /**
+                         * Check load Ads first time
+                         */
+                        if (!ApplicationContext.getAdsContext().isLoadAds) {
+                            ApplicationContext.getAdsContext().isLoadAds = true
+                            openAppAdsManager.switchOnOff(true)
+                            mainVM.loadAds()
+                        }
+                    }
+
+                    is Result.Failure -> {}
+                    is Result.Error -> {}
+                    is Result.Failures<*> -> {}
+                }
+            }
+
+
+            listVideoUserResult.observe(this@VideosFragment) {
                 listVideoUserCreated.addAll(it)
             }
         }
@@ -126,7 +176,7 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
             })
     }
 
-    private fun myProcessData(result: DataHomeResponse){
+    private fun myProcessData(result: DataHomeResponse) {
         val dataResponse = result.data.data as ArrayList<Data>
         dataListVideo.add(NewVideo())
         for (position in dataResponse.indices) {
@@ -135,9 +185,11 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
                 DataType.VIDEO_MADE_BY_USER.type -> {
                     listVideoUserCreated.poll()?.let { dataResponse.set(position, it) }
                 }
+
                 DataType.NATIVE_ADS.type -> {
                     dataResponse[position] = NativeAds()
                 }
+
                 DataType.VIDEO_TEMPLATE_TYPE.type -> {
                     dataResponse[position] = itemInDataResponse.convertToTemplateObject()
                 }
@@ -182,7 +234,7 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
                 deleteVideoDialog?.show(parentFragmentManager, "dialog_confirm_delete")
             },
             onClickTemplate = { position, template ->
-                navigationManager.navigationToPreviewTemplateActivity(template)
+                navigationManager.navigationToNewPreviewTemplateActivity(template)
             }
         )
         adapterVideosInHome.setNativeAdsManager(nativeAdsInHomeManager)
@@ -229,25 +281,32 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>(){
     @Subscribe
     fun onMessageEvent(event: MessageEvent) {
         when (event.message) {
-            MessageEvent.SAVED_VIDEO_USER ->{
+            MessageEvent.SAVED_VIDEO_USER -> {
                 val eventObj = event.objRealm
-                if(eventObj?.wallpaperType == WallpaperType.VIDEO_USER_TYPE.value){
+                if (eventObj?.wallpaperType == WallpaperType.VIDEO_USER_TYPE.value) {
                     event.objRealm?.convertToVideoUser()?.let { dataListVideo.add(1, it) }
-                }else if(eventObj?.wallpaperType == WallpaperType.IMAGE_USER_TYPE.value){
+                } else if (eventObj?.wallpaperType == WallpaperType.IMAGE_USER_TYPE.value) {
                     event.objRealm?.convertToImageUser()?.let { dataListVideo.add(1, it) }
                 }
                 adapterVideosInHome.notifyItemInserted(1)
                 adapterVideosInHome.notifyItemRangeChanged(1, dataListVideo.size)
             }
-            MessageEvent.RENAME_IMAGE_VIDEO ->{
+
+            MessageEvent.RENAME_IMAGE_VIDEO -> {
                 val dataObj = event.objRealm
                 val wallpaperType = dataObj?.wallpaperType
-                if(wallpaperType == WallpaperType.VIDEO_USER_TYPE.value){
+                if (wallpaperType == WallpaperType.VIDEO_USER_TYPE.value) {
                     dataListVideo[currentPositionItemClicked!!] = dataObj.convertToVideoUser()
-                    adapterVideosInHome.notifyItemChanged(currentPositionItemClicked!!, dataObj.convertToVideoUser())
-                }else if(wallpaperType == WallpaperType.IMAGE_USER_TYPE.value){
+                    adapterVideosInHome.notifyItemChanged(
+                        currentPositionItemClicked!!,
+                        dataObj.convertToVideoUser()
+                    )
+                } else if (wallpaperType == WallpaperType.IMAGE_USER_TYPE.value) {
                     dataListVideo[currentPositionItemClicked!!] = dataObj.convertToImageUser()
-                    adapterVideosInHome.notifyItemChanged(currentPositionItemClicked!!, dataObj.convertToImageUser())
+                    adapterVideosInHome.notifyItemChanged(
+                        currentPositionItemClicked!!,
+                        dataObj.convertToImageUser()
+                    )
                 }
             }
         }

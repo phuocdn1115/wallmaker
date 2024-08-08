@@ -8,6 +8,7 @@ import com.app.imagetovideo.data.realm_model.WallpaperDownloaded
 import com.app.imagetovideo.ui.screens.edit_screen.EditorActivity
 import com.app.imagetovideo.ui.screens.main.MainActivity
 import com.app.imagetovideo.ui.screens.main.profile.PrivacyPolicyActivity
+import com.app.imagetovideo.ui.screens.main.template.NewPreviewTemplateActivity
 import com.app.imagetovideo.ui.screens.main.template.PreviewTemplateActivity
 import com.app.imagetovideo.ui.screens.preview_home.PreviewActivity
 import com.app.imagetovideo.ui.screens.set_home.SetWallpaperActivity
@@ -54,6 +55,13 @@ class NavigationManager (private val context: Context) {
 
     fun navigationToPreviewTemplateActivity(template: Template) {
         val intent = Intent(context, PreviewTemplateActivity::class.java)
+        intent.putExtra(EXTRA_TEMPLATE, template)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    fun navigationToNewPreviewTemplateActivity(template: Template) {
+        val intent = Intent(context, NewPreviewTemplateActivity::class.java)
         intent.putExtra(EXTRA_TEMPLATE, template)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)

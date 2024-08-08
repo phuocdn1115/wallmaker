@@ -73,14 +73,6 @@ class MainRepository @Inject constructor(
         for(i in 0 until ownerItemCount){
             (dataResponse.data.data as MutableList).add(0, Wallpaper(type = DataType.VIDEO_MADE_BY_USER.type, name = "OwnerItem"))
         }
-        val nativeADsCount = dataResponse.data.data.size / 4
-        for(index in 1..nativeADsCount ){
-            /**
-             * Position of native ADs
-             */
-            val indexOfNativeADs = index * 4 +  index - 1
-            (dataResponse.data.data as MutableList).add(indexOfNativeADs, Wallpaper(type = DataType.NATIVE_ADS.type, name = "NativeAdsItem"))
-        }
     }
 
     @SuppressLint("Range")

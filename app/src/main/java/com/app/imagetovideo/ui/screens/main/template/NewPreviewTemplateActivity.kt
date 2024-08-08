@@ -2,10 +2,13 @@ package com.app.imagetovideo.ui.screens.main.template
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.app.imagetovideo.R
 import com.app.imagetovideo.aplication.ApplicationContext
@@ -38,7 +41,9 @@ import com.app.imagetovideo.data.model.DataTemplateVideo
 import com.app.imagetovideo.data.model.TemplateVideo
 import com.app.imagetovideo.data.sampledata.SampleData
 import com.app.imagetovideo.databinding.ActivityNewPreviewTemplateBinding
+import com.app.imagetovideo.video.PhotoMovieFactoryUsingTemplate
 import com.hw.photomovie.PhotoMovie
+import com.hw.photomovie.PhotoMovieFactory
 import com.hw.photomovie.PhotoMoviePlayer
 import com.hw.photomovie.model.PhotoData
 import com.hw.photomovie.model.PhotoSource
@@ -57,11 +62,11 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
     var requestPermissionStorageDialog: DialogRequestPermissionStorage? = null
 
     lateinit var movieRender: GLSurfaceMovieRenderer
-    var templateVideo: TemplateVideo?= null
-    var dataTemplateVideo: DataTemplateVideo?= null
+    var templateVideo: TemplateVideo? = null
+    var dataTemplateVideo: DataTemplateVideo? = null
     var photoMoviePlayer: PhotoMoviePlayer? = null
-    var photoSource: PhotoSource?= null
-    var photoMovie: PhotoMovie<*>?= null
+    var photoSource: PhotoSource? = null
+    var photoMovie: PhotoMovie<*>? = null
     val photoDataList = ArrayList<PhotoData>()
 
     private val movieListener = object : IMovieTimer.MovieListener {
@@ -80,18 +85,20 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
         override fun onPreparing(moviePlayer: PhotoMoviePlayer?, progress: Float) {
             Log.d("CHECK_STATE", "onPreparing: run")
         }
+
         override fun onPrepared(moviePlayer: PhotoMoviePlayer?, prepared: Int, total: Int) {
             Log.d("CHECK_STATE", "onPrepared: run")
             runOnUiThread {
                 photoMoviePlayer?.start()
             }
         }
+
         override fun onError(moviePlayer: PhotoMoviePlayer?) {
             Log.d("CHECK_STATE", "onError: run")
         }
     }
 
-    override fun getContentLayout(): Int = R.layout.activity_preview_template
+    override fun getContentLayout(): Int = R.layout.activity_new_preview_template
 
     override fun initView() {
         initToolbar()
@@ -120,14 +127,20 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
     override fun getLayoutLoading(): BaseLoadingView? = null
 
     private fun initToolbar() {
-        binding.toolbar.container.setPadding(0, StatusBarUtils.getStatusBarHeight(this), 0, resources.getDimensionPixelSize(R.dimen.dp20))
+        binding.toolbar.container.setPadding(
+            0,
+            StatusBarUtils.getStatusBarHeight(this),
+            0,
+            resources.getDimensionPixelSize(R.dimen.dp20)
+        )
         binding.toolbar.btnClose.visibility = View.INVISIBLE
         binding.toolbar.btnBack.visibility = View.VISIBLE
         binding.toolbar.tvTitle.text = getString(R.string.str_preview_template)
     }
 
     private fun getDataFromIntent() {
-        if (intent.hasExtra(EXTRA_TEMPLATE)) myTemplate = intent.getSerializableExtra(EXTRA_TEMPLATE) as Template
+        if (intent.hasExtra(EXTRA_TEMPLATE)) myTemplate =
+            intent.getSerializableExtra(EXTRA_TEMPLATE) as Template
     }
 
     private fun setupUI() {
@@ -140,7 +153,7 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
             setOnPreparedListener(preparePhotoMovieListener)
         }
         configTemplateVideo()
-        GlideHandler.setImageFormDrawableResource(binding.imgThumbPreview,  1)
+//        GlideHandler.setImageFormDrawableResource(binding.imgThumbPreview,  1)
     }
 
     private fun configTemplateVideo() {
@@ -148,6 +161,14 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
             clear()
             addAll(SampleData.samplePhotoDataList(baseContext))
         }
+        binding.imgThumbPreview.visibility = View.GONE
+        photoMoviePlayer?.stop()
+        photoMoviePlayer?.setIsWindowMovie(templateVideo?.template)
+        photoDataList.add(photoDataList[0])
+        photoSource = PhotoSource(photoDataList)
+        photoMovie = PhotoMovieFactoryUsingTemplate.generatePhotoMovies(myTemplate, photoDataList)
+        photoMoviePlayer?.setDataSource(photoMovie)
+        photoMoviePlayer?.prepare()
     }
 
     override fun onStart() {
@@ -166,6 +187,7 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.i("REQUEST_PERMISSION", "${grantResults[0]}, $requestCode")
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == RequestCode.PERMISSION_READ_EXTERNAL_STORAGE.requestCode) {
                 requestPermissions(
@@ -190,7 +212,7 @@ class NewPreviewTemplateActivity : BaseActivity<ActivityNewPreviewTemplateBindin
     @Subscribe
     fun onMessageEvent(event: MessageEvent) {
         when (event.message) {
-            MessageEvent.FINISH_TEMPLATE_ACTIVITY ->{
+            MessageEvent.FINISH_TEMPLATE_ACTIVITY -> {
                 finish()
             }
         }

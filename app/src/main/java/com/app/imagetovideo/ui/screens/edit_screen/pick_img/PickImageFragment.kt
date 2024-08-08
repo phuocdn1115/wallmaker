@@ -4,9 +4,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -51,6 +53,26 @@ class PickImageFragment: BaseFragment<LayoutPickImageBinding>() {
     private var heightCalculator = 0
     private var template: Template? = null
     private lateinit var gridLayoutManager : GridLayoutManager
+
+    val activityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            var isGranted = true
+            permissions.forEach{
+                if (!it.value)
+                    isGranted = false
+            }
+            Log.i("CHECK_PERMISSION_GRANTED", "$isGranted ")
+            if (isGranted) {
+                pickImageVM.getImageFromDevice()
+                dialogGrantPermissionStorage?.dismiss()
+            } else {
+                ToastUtil.showToast(
+                    resources.getString(R.string.txt_explain_permission_storage),
+                    requireContext()
+                )
+                dialogGrantPermissionStorage?.dismiss()
+            }
+        }
 
     /**
      * @param viewPagerEditor is view pager in editor activity
