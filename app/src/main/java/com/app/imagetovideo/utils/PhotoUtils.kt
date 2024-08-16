@@ -40,7 +40,7 @@ class PhotoUtils {
                 outStream = ByteArrayOutputStream()
                 croppedBitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, outStream)
                 outputStream.write(outStream.toByteArray())
-                croppedBitmap?.recycle()
+//                croppedBitmap?.recycle()
                 val uriResult = Uri.fromFile(File(context.cacheDir, mOutputPath))
                 onSuccess.invoke(uriResult)
             } catch (exc: Exception) {

@@ -252,6 +252,7 @@ PreviewVideoFragment: BaseFragment<LayoutPreviewBinding>() {
                     sessionContext.isHandleGoToPreview = false
                 }
 
+                Log.i("PREVIEW_VIDEO", "observerLiveData: 4")
                 binding.layoutLinearProgressIndicator.visibility = View.GONE
                 Log.d("PREVIEW_VIDEO_FRAGMENT", "----------------------------------GONE-------------------------------------")
                 dataTemplateVideo = data
@@ -259,7 +260,9 @@ PreviewVideoFragment: BaseFragment<LayoutPreviewBinding>() {
                 templateVideo = data?.templateVideo
                 photoDataList.clear()
                 if (listImageSelected?.isNotEmpty() == true) {
+                    Log.i("PREVIEW_VIDEO", "observerLiveData: 5")
                     for (img in listImageSelected) {
+                        Log.i("PREVIEW_VIDEO", "${img?.uriResultCutImageInCache}")
                         if (img?.uriResultCutImageInCache != null) photoDataList.add(SimplePhotoData(context, img.uriResultCutImageInCache, PhotoData.STATE_LOCAL))
                     }
                     if (listImageSelected.size > 1) {
@@ -273,8 +276,12 @@ PreviewVideoFragment: BaseFragment<LayoutPreviewBinding>() {
                         photoDataList.add(photoDataList[0])
                         photoSource = PhotoSource(photoDataList)
                         photoMovie = if(template == null){
+
+                            Log.i("PREVIEW_VIDEO", "observerLiveData: 6")
                             PhotoMovieFactory.generatePhotoMovie(photoSource, templateVideo?.template)
                         } else {
+
+                            Log.i("PREVIEW_VIDEO", "observerLiveData: 7")
                             PhotoMovieFactoryUsingTemplate.generatePhotoMovies(template, photoDataList)
                         }
                         photoMoviePlayer?.setDataSource(photoMovie)

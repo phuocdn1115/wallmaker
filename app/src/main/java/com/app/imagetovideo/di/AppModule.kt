@@ -13,6 +13,7 @@ import com.app.imagetovideo.base.ConnectionLiveData
 import com.app.imagetovideo.base.FirebaseManager
 import com.app.imagetovideo.download.DownloadWallpaperManager
 import com.app.imagetovideo.navigation.NavigationManager
+import com.app.imagetovideo.ui.screens.edit_screen.filter_image.FilterImageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -96,4 +97,9 @@ object AppModule {
     fun providerFirebaseManager(
         @ApplicationContext context: Context
     ) = FirebaseManager(context)
+
+//    @Provides
+//    fun providerFilterRepository(
+//        @ApplicationContext context: Context
+//    ) = FilterImageRepository(context)
 }

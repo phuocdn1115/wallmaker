@@ -215,6 +215,7 @@ dependencies {
     //Exoplayer
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
 
+    implementation "jp.co.cyberagent.android:gpuimage:$gpuimag"
     //Set Keyboard Visibility
     implementation("net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3")
 }

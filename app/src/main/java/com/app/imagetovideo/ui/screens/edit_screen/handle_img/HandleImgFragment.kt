@@ -2,6 +2,7 @@ package com.app.imagetovideo.ui.screens.edit_screen.handle_img
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -25,6 +26,7 @@ import com.app.imagetovideo.ui.adapters.ViewPagerFragmentAdapter
 import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import com.app.imagetovideo.ui.screens.edit_screen.crop_img.CropImgFragment
 import com.app.imagetovideo.ui.screens.edit_screen.filter_bright.FilterBrightnessFragment
+import com.app.imagetovideo.ui.screens.edit_screen.filter_image.FilterImageFragment
 import com.app.imagetovideo.ui.screens.edit_screen.list_img_selected.ListImgSelectedFragment
 import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.utils.extension.heightScreen
@@ -48,6 +50,7 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
     private var viewpagerDescriptionControlAdapter: ViewPagerFragmentAdapter?= null
     private lateinit var listImgSelectedFragment: ListImgSelectedFragment
     private lateinit var listFilterBrightnessFragment: FilterBrightnessFragment
+    private lateinit var listFilterImageFragment: FilterImageFragment
     private var listImageEdited : HashSet<Int> = hashSetOf()
     private var template : Template? = null
 
@@ -113,11 +116,18 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
             activity?.onBackPressed()
         }
         binding.toolbar.tvPreview.setSafeOnClickListener {
-            editorVM.saveTimeGeneratePreviewVideo(System.currentTimeMillis())
-            sessionContext.isHandleGoToPreview = true
-            editorVM.setUpUIPreviewMode()
-            viewPagerEditor?.setCurrentItem(EditorTabType.PREVIEW_VIDEO_TAB.position, true)
-            editImageToCreateVideo()
+            if (handleImageMode == HandleImageMode.MODE_CROP) {
+                Log.i("PREVIEW_VIDEO", "observerLiveData: 1")
+
+                editorVM.saveTimeGeneratePreviewVideo(System.currentTimeMillis())
+                sessionContext.isHandleGoToPreview = true
+                editorVM.setUpUIPreviewMode()
+                viewPagerEditor?.setCurrentItem(EditorTabType.PREVIEW_VIDEO_TAB.position, true)
+                editImageToCreateVideo()
+            } else {
+                listFilterImageFragment.onSaveFilterImage.invoke()
+            }
+
         }
         binding.layoutControlbar.btnDelete.setSafeOnClickListener {
             if(template != null && listImageSelected.size > 2 || template == null){
@@ -133,6 +143,7 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
     private fun editImageToCreateVideo(){
         for(position in 0 until editorVM.imageSelectedList.size){
             if(!listImageEdited.contains(position)){
+                Log.i("PREVIEW_VIDEO", "observerLiveData: 2.$position")
                 val fragmentCropImage = viewpagerHandleImageSelectedAdapter?.getFragmentByPosition(position) as CropImgFragment
                 fragmentCropImage.cropAndSaveImage(false, position)
                 break
@@ -185,11 +196,12 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
             viewPagerEditor?.currentItem = EditorTabType.PICK_IMAGE_TAB.position
         }
         listImgSelectedFragment.setViewpagerHandleImage(binding.viewpagerHandleImage)
-        listFilterBrightnessFragment = FilterBrightnessFragment.newInstance()
+//        listFilterBrightnessFragment = FilterBrightnessFragment.newInstance()
+        listFilterImageFragment = FilterImageFragment.newInstance()
         viewpagerDescriptionControlAdapter = ViewPagerFragmentAdapter(this)
         viewpagerDescriptionControlAdapter?.apply {
             addFragment(listImgSelectedFragment)
-            addFragment(listFilterBrightnessFragment)
+            addFragment(listFilterImageFragment)
         }
         binding.viewpagerDescriptionControl.apply {
             adapter = viewpagerDescriptionControlAdapter
@@ -208,10 +220,12 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
                 btnDelete.visibility = View.VISIBLE
                 icIndicatorFilter.visibility = View.INVISIBLE
             }
+            Log.i("GO_TO_FILTER_MODE", "onMessageEvent: 2 ")
+
             binding.viewpagerDescriptionControl.setCurrentItem(DescriptionControlTabType.IMAGE_SELECTED_TAB.position, true)
             binding.viewpagerHandleImage.visibility = View.VISIBLE
             binding.viewFilterBrightness.visibility = View.GONE
-            binding.toolbar.tvPreview.visibility = View.VISIBLE
+            binding.toolbar.tvPreview.text = resources.getString(R.string.txt_preview)
             binding.toolbar.tvTitle.text = getString(R.string.str_title_editor_screen_1)
         }
         if (handleImageMode == HandleImageMode.MODE_FILTER) {
@@ -226,7 +240,7 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
             binding.viewpagerDescriptionControl.setCurrentItem(DescriptionControlTabType.FILTER_BRIGHTNESS_TAB.position, true)
             binding.viewpagerHandleImage.visibility = View.GONE
             binding.viewFilterBrightness.visibility = View.VISIBLE
-            binding.toolbar.tvPreview.visibility = View.GONE
+            binding.toolbar.tvPreview.text = resources.getString(R.string.txt_save_filter)
             binding.toolbar.tvTitle.text = getString(R.string.str_title_editor_screen_2)
         }
     }
@@ -269,6 +283,7 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
         when (event.message) {
             HandleImageEvent.UPDATE_IMAGE_LIST_EVENT -> {
                 if (event.isGotoFilterMode == true) {
+                    Log.i("GO_TO_FILTER_MODE", "onMessageEvent: 1 ")
                     imageCurrentFilter = event.imageSelected
                     handleImageMode = HandleImageMode.MODE_FILTER
                     refreshDataUI()
@@ -282,9 +297,13 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
                     if (positionImageSelectedToEdit != null) {
                         editorVM.imageSelectedList[positionImageSelectedToEdit] = event.imageSelected
                         if(positionImageSelectedToEdit == editorVM.imageSelectedList.size - 1){
+                            Log.i("PREVIEW_VIDEO", "observerLiveData: 3.1")
+
                             editorVM.setSelectedTemplateVideoData()
                             listImageEdited.clear()
                         } else {
+                            Log.i("PREVIEW_VIDEO", "observerLiveData: 3.2")
+
                             listImageEdited.add(positionImageSelectedToEdit)
                             editImageToCreateVideo()
                         }
@@ -292,7 +311,7 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
                 }
             }
             HandleImageEvent.UPDATE_FILTER_BRIGHTNESS_EVENT -> {
-                binding.imgFilterBrightness.setImageBitmap(event.filterBrightness?.bitmapImageCropped)
+                binding.imgFilterBrightness.setImageBitmap(event.imageFilter?.filterPreview)
             }
             HandleImageEvent.SAVE_FILTER_BRIGHTNESS_EVENT -> {
                 val positionImageChanged = binding.viewpagerHandleImage.currentItem

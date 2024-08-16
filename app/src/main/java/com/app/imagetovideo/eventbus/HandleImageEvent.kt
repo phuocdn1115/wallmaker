@@ -1,6 +1,7 @@
 package com.app.imagetovideo.eventbus
 
 import com.app.imagetovideo.data.model.FilterBrightness
+import com.app.imagetovideo.data.model.ImageFilter
 import com.app.imagetovideo.model.ImageSelected
 
 class HandleImageEvent {
@@ -19,6 +20,7 @@ class HandleImageEvent {
     var filterBrightness: FilterBrightness? = null
     var position: Int? = null
     var isGotoFilterMode: Boolean?= true
+    var imageFilter: ImageFilter? = null
     constructor(message: String, imageSelected: ImageSelected?, isGotoFilterMode: Boolean ?= true, position: Int?= null) {
         this.message = message
         this.imageSelected = imageSelected
@@ -29,6 +31,12 @@ class HandleImageEvent {
     constructor(message: String, filterBrightness: FilterBrightness?, imageSelected: ImageSelected?= null) {
         this.message = message
         this.filterBrightness = filterBrightness
+        this.imageSelected = imageSelected
+    }
+
+    constructor(message: String, imageFilter: ImageFilter?, imageSelected: ImageSelected?= null) {
+        this.message = message
+        this.imageFilter = imageFilter
         this.imageSelected = imageSelected
     }
 
