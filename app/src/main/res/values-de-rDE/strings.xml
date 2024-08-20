@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Live Wallpaper Maker</string>
+    <string name="app_name">Wall Style</string>
     <string name="txt_header_splash">"Die Bilder, die Sie lieben. Alles in einem Hintergrundbild. "</string>
     <string name="txt_btn_continue_splash">Ihr eigenes Video erstellen</string>
     <string name="txt_request_permission">Wallpaper Maker erlauben, auf Fotos und Medien auf Ihrem Gerät zuzugreifen</string>

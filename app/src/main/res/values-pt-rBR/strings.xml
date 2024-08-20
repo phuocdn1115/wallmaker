@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Live Wallpaper Maker</string>
+    <string name="app_name">Wall Style</string>
     <string name="txt_header_splash">\"As imagens que você adora.  Tudo em um papel de parede.\"</string>
     <string name="txt_btn_continue_splash">Crie seu próprio papel de parede</string>
     <string name="txt_request_permission">Para criar papéis de parede incríveis para você, precisamos acessar suas fotos e mídia</string>

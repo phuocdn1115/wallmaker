@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Live Wallpaper Maker</string>
+    <string name="app_name">Wall Style</string>
     <string name="file_name" translatable="false">wallpapermaker</string>
 
     --------------Splash screen-------------------
@@ -13,7 +13,7 @@
     <string name="txt_btn_skip_permission">Bỏ qua</string>
 
     --------------Home screen-------------------
-    <string name="text_tab_videos">Hình nền động</string>
+    <string name="text_tab_videos">Hình nền phong cách</string>
     <string name="text_tab_me">Cá nhân</string>
     <string name="text_new_videos">Hình nền mới</string>
     <string name="text_new">Tạo</string>
@@ -21,7 +21,7 @@
     <string name="text_contact_support_label_me_home">Liên hệ hỗ trợ</string>
     <string name="text_privacy_policy_label_me_home">Chính sách quyền riêng tư</string>
     <string name="text_notifications_label_me_home">Thông báo</string>
-    <string name="text_contact_support_email_me_home" translatable="false">support@tp.com.vn</string>
+    <string name="text_contact_support_email_me_home" translatable="false">cba.upup@gmail.com</string>
     <string name="text_setting_label_me_home">Cài đặt ứng dụng</string>
 
 

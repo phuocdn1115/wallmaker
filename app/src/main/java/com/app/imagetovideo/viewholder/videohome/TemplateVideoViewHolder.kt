@@ -18,7 +18,7 @@ class TemplateVideoViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     init {
-        setupUIItemImgVideoHome(itemView)
+//        setupUIItemTemplateHome(itemView)
         binding.viewParent.setCardBackgroundColor(CommonUtils.randomColor())
     }
 

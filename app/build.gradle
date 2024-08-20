@@ -72,7 +72,7 @@ android {
                 buildConfigField "String", "ADS_REWARDED_IN_PREVIEW_ID", "\"ca-app-pub-3940256099942544/5224354917\""
                 buildConfigField "String", "ADS_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\""
                 buildConfigField "String", "GLOBAL_STORAGE_VIDEO_URL", "\"https://wallmaker.nyc3.cdn.digitaloceanspaces.com/makerstorage/\""
-                buildConfigField "String", "POLICY_URL", "\"https://sites.google.com/view/wallmakerpolicy/policy\""
+                buildConfigField "String", "POLICY_URL", "\"https://sites.google.com/view/mystylewallpaper-policy\""
                 buildConfigField "String", "DOMAIN_DYNAMIC_LINK", "\"https://wallpapermaker.page.link\""
                 debuggable true
             }
@@ -95,7 +95,7 @@ android {
             buildConfigField "String", "ADS_BANNER_ID", "\"ca-app-pub-1838653768193388/9758221313\""
 
             buildConfigField "String", "GLOBAL_STORAGE_VIDEO_URL", "\"https://www.sgvideostore.tplivewallpaper.xyz/video7storage/\""
-            buildConfigField "String", "POLICY_URL", "\"https://sites.google.com/view/wallmakerpolicy/policy\""
+            buildConfigField "String", "POLICY_URL", "\"https://sites.google.com/view/mystylewallpaper-policy\""
             buildConfigField "String", "DOMAIN_DYNAMIC_LINK", "\"https://wallpapermaker.page.link\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 

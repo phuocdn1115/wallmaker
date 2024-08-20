@@ -126,9 +126,9 @@ class ConnectionLiveData(private val context: Context) : LiveData<Boolean>() {
         /** If reconnect internet:
          * Check initializerFirebaseRemoteConfig
          * */
-        if (NetworkUtils.isConnected() && !ApplicationContext.getDeviceContext().initializerFirebaseRemoteConfig) {
-            FirebaseConfigureInitializer.fetchRemoteConfig(context.getDeviceId(), ApplicationContext.getNetworkContext().countryKey, context)
-        }
+//        if (NetworkUtils.isConnected() && !ApplicationContext.getDeviceContext().initializerFirebaseRemoteConfig) {
+//            FirebaseConfigureInitializer.fetchRemoteConfig(context.getDeviceId(), ApplicationContext.getNetworkContext().countryKey, context)
+//        }
 
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
