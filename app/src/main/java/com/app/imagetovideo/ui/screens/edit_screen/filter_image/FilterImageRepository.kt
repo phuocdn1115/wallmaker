@@ -2,42 +2,66 @@ package com.app.imagetovideo.ui.screens.edit_screen.filter_image
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import com.app.imagetovideo.data.model.ImageFilter
-import com.app.imagetovideo.eventbus.HandleImageEvent
+import com.app.imagetovideo.model.ImageSelected
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.co.cyberagent.android.gpuimage.GPUImage
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageColorMatrixFilter
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter
-import org.greenrobot.eventbus.EventBus
+import java.io.File
 import javax.inject.Inject
 
 class FilterImageRepository @Inject constructor(@ApplicationContext val context: Context) {
-    fun getImageFilter(image: Bitmap): List<ImageFilter> {
-        Log.i("GO_TO_FILTER_MODE", "onMessageEvent: 5.1 ")
+    fun getImageFilter(image: ImageSelected?): List<ImageFilter> {
 
-        val gpuImage = GPUImage(context).apply {
-            setImage(image)
-        }
+        val bitmapImageCroppedWithFilter =
+            MediaStore.Images.Media.getBitmap(
+                context.contentResolver,
+                Uri.parse(image?.uriResultCutImageInCache)
+            )
+        val uriImageFilterSaved =
+            if (image?.uriResultFilterImageInCache != null) Uri.parse(image.uriResultFilterImageInCache)
+            else Uri.fromFile(File(image?.uriInput ?: ""))
+        val bitmapImageOriginWithFilter = MediaStore.Images.Media.getBitmap(
+            context.contentResolver,
+            uriImageFilterSaved
+        )
         val imageFilters: ArrayList<ImageFilter> = ArrayList()
-        processFilterImage(gpuImage, imageFilters)
+        processFilterImage(bitmapImageCroppedWithFilter, bitmapImageOriginWithFilter, imageFilters)
         return imageFilters
     }
 
-    private fun processFilterImage(gpuImage: GPUImage, result: MutableList<ImageFilter>) {
+    private fun processFilterImage(
+        bmImageCropped: Bitmap,
+        bmImageOriginFilter: Bitmap,
+        result: MutableList<ImageFilter>
+    ) {
         Log.i("GO_TO_FILTER_MODE", "onMessageEvent: 5.2 ")
 
         /**
          * Color Matrix Filters
          */
+        val gpuImageCropped = GPUImage(context).apply {
+            setImage(bmImageCropped)
+        }
+
+        val gpuImageOriginFilter = GPUImage(context).apply {
+            setImage(bmImageOriginFilter)
+        }
 
         GPUImageFilter().also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Normal",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied,
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied,
                     isSelected = true
                 )
             )
@@ -52,12 +76,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 1.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Retro",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -71,12 +97,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 1.0f, 1.0f, 1.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Just",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -90,12 +118,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Hume",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -109,53 +139,59 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Desert",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
 
-            GPUImageColorMatrixFilter(
-                1.0f,
-                floatArrayOf(
-                    1.0f, 0.05f, 0.0f, 0.0f,
-                    -0.2f, 1.1f, -0.2f, 0.11f,
-                    0.2f, 0.0f, 1.0f, 0.0f,
-                    0.0f, 0.0f, 0.0f, 1.0f
+        GPUImageColorMatrixFilter(
+            1.0f,
+            floatArrayOf(
+                1.0f, 0.05f, 0.0f, 0.0f,
+                -0.2f, 1.1f, -0.2f, 0.11f,
+                0.2f, 0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f
+            )
+        ).also { filter ->
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
+            result.add(
+                ImageFilter(
+                    name = "OldTime",
+                    filter = filter,
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
-            ).also { filter ->
-                gpuImage.setFilter(filter)
-                result.add(
-                    ImageFilter(
-                        name = "OldTime",
-                        filter = filter,
-                        filterPreview = gpuImage.bitmapWithFilterApplied
-                    )
-                )
-            }
+            )
+        }
 
-            GPUImageColorMatrixFilter(
-                1.0f,
-                floatArrayOf(
-                    1.0f, 0.0f, 0.08f, 0.0f,
-                    0.4f, 1.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 1.0f, 0.1f,
-                    0.0f, 0.0f, 0.0f, 1.0f
+        GPUImageColorMatrixFilter(
+            1.0f,
+            floatArrayOf(
+                1.0f, 0.0f, 0.08f, 0.0f,
+                0.4f, 1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.1f,
+                0.0f, 0.0f, 0.0f, 1.0f
+            )
+        ).also { filter ->
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
+            result.add(
+                ImageFilter(
+                    name = "Limo",
+                    filter = filter,
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
-            ).also { filter ->
-                gpuImage.setFilter(filter)
-                result.add(
-                    ImageFilter(
-                        name = "Limo",
-                        filter = filter,
-                        filterPreview = gpuImage.bitmapWithFilterApplied
-                    )
-                )
-            }
+            )
+        }
         GPUImageColorMatrixFilter(
             1.0f,
             floatArrayOf(
@@ -165,12 +201,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Solar",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -184,12 +222,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Neutron",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -203,12 +243,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Milk",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -226,12 +268,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Clue",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -248,12 +292,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0.0f, 0.0f, 0.0f, 1.0f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Muli",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -267,12 +313,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Aero",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -286,12 +334,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Classic",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -305,12 +355,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Atom",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -324,12 +376,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Mars",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
         }
@@ -342,12 +396,14 @@ class FilterImageRepository @Inject constructor(@ApplicationContext val context:
                 0f, 0f, 0f, 1f
             )
         ).also { filter ->
-            gpuImage.setFilter(filter)
+            gpuImageCropped.setFilter(filter)
+            gpuImageOriginFilter.setFilter(filter)
             result.add(
                 ImageFilter(
                     name = "Yeli",
                     filter = filter,
-                    filterPreview = gpuImage.bitmapWithFilterApplied
+                    filterPreview = gpuImageCropped.bitmapWithFilterApplied,
+                    filterSave = gpuImageOriginFilter.bitmapWithFilterApplied
                 )
             )
 

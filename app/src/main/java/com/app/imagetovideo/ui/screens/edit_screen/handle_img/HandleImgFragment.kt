@@ -117,9 +117,6 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
         }
         binding.toolbar.tvPreview.setSafeOnClickListener {
             if (handleImageMode == HandleImageMode.MODE_CROP) {
-                Log.i("PREVIEW_VIDEO", "observerLiveData: 1")
-
-                editorVM.saveTimeGeneratePreviewVideo(System.currentTimeMillis())
                 sessionContext.isHandleGoToPreview = true
                 editorVM.setUpUIPreviewMode()
                 viewPagerEditor?.setCurrentItem(EditorTabType.PREVIEW_VIDEO_TAB.position, true)

@@ -26,15 +26,17 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.File
 
-class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
-    private var myGestureCropImageView: GestureCropImageView?= null
-    private var myOverlayView: OverlayView?= null
+class CropImgFragment : BaseFragment<LayoutCropImageBinding>() {
+    private var myGestureCropImageView: GestureCropImageView? = null
+    private var myOverlayView: OverlayView? = null
     private lateinit var myBlockingView: RelativeLayout
-    private var imageSelected: ImageSelected?= null
+    private var imageSelected: ImageSelected? = null
     private val myTransformImageListener = object : TransformImageView.TransformImageListener {
         override fun onLoadComplete() {
-            binding.uCropView.animate().alpha(1F).setDuration(300).interpolator = AccelerateInterpolator()
-            binding.container.animate().alpha(1F).setDuration(500).interpolator = AccelerateInterpolator()
+            binding.uCropView.animate().alpha(1F).setDuration(300).interpolator =
+                AccelerateInterpolator()
+            binding.container.animate().alpha(1F).setDuration(500).interpolator =
+                AccelerateInterpolator()
             myBlockingView.isClickable = false
         }
 
@@ -51,6 +53,7 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
         }
 
     }
+
     companion object {
         fun newInstance(bundle: Bundle): CropImgFragment {
             val fragment = CropImgFragment()
@@ -67,8 +70,18 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
         myGestureCropImageView = binding.uCropView.cropImageView
         myGestureCropImageView?.setTransformImageListener(myTransformImageListener)
         myOverlayView = binding.uCropView.overlayView
-        myGestureCropImageView?.setPadding(0, resources.getDimensionPixelSize(R.dimen.dp100), 0, resources.getDimensionPixelSize(R.dimen.dp100))
-        myOverlayView?.setPadding(0, resources.getDimensionPixelSize(R.dimen.dp100), 0, resources.getDimensionPixelSize(R.dimen.dp100))
+        myGestureCropImageView?.setPadding(
+            0,
+            resources.getDimensionPixelSize(R.dimen.dp100),
+            0,
+            resources.getDimensionPixelSize(R.dimen.dp100)
+        )
+        myOverlayView?.setPadding(
+            0,
+            resources.getDimensionPixelSize(R.dimen.dp100),
+            0,
+            resources.getDimensionPixelSize(R.dimen.dp100)
+        )
         doOptionsCropImage()
         addBlockingView()
         initData()
@@ -76,12 +89,20 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
 
     private fun initData() {
         imageSelected = arguments?.get(ImageSelected.KeyData.IMAGE_SELECTED) as ImageSelected
+        Log.i("CHECK_DATA_URI", imageSelected?.uriResultFilterImageInCache ?: "NULL")
+        val imageUri = imageSelected?.uriResultFilterImageInCache ?: imageSelected?.uriInput
         try {
             myGestureCropImageView?.setImageUri(
-                Uri.fromFile(File(imageSelected?.uriInput ?: "")),
-                Uri.fromFile(File(requireContext().cacheDir, imageSelected?.getChildNameCacheFile() ?: ""))
+                Uri.fromFile(File(imageUri ?: "")),
+                Uri.fromFile(
+                    File(
+                        requireContext().cacheDir,
+                        imageSelected?.getChildNameCacheFile() ?: ""
+                    )
+                )
             )
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+        }
     }
 
     override fun initListener() {
@@ -100,7 +121,8 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
             maxBitmapSize = CropImageView.DEFAULT_MAX_BITMAP_SIZE
             setMaxScaleMultiplier(CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER)
             setImageToWrapCropBoundsAnimDuration(CropImageView.DEFAULT_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION.toLong())
-            targetAspectRatio = displayMetrics!!.widthPixels.toFloat() / displayMetrics!!.heightPixels
+            targetAspectRatio =
+                displayMetrics!!.widthPixels.toFloat() / displayMetrics!!.heightPixels
             setImageToWrapCropBounds()
             isRotateEnabled = false
         }
@@ -116,10 +138,13 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
         }
     }
 
-    fun cropAndSaveImage(isGotoFilterMode: Boolean ?= true, position: Int?= null) {
-            val compressQuality = 90
-            val compressFormat = Bitmap.CompressFormat.JPEG
-            myGestureCropImageView?.cropAndSaveImage(compressFormat, compressQuality, object : BitmapCropCallback {
+    fun cropAndSaveImage(isGotoFilterMode: Boolean? = true, position: Int? = null) {
+        val compressQuality = 90
+        val compressFormat = Bitmap.CompressFormat.JPEG
+        myGestureCropImageView?.cropAndSaveImage(
+            compressFormat,
+            compressQuality,
+            object : BitmapCropCallback {
                 override fun onBitmapCropped(
                     resultUri: Uri,
                     offsetX: Int,
@@ -131,15 +156,32 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
                         imageSelected?.uriResultCutImageInCache = resultUri.toString()
                         myGestureCropImageView?.setImageUri(
                             Uri.fromFile(File(imageSelected?.uriInput ?: "")),
-                            Uri.fromFile(File(requireContext().cacheDir, imageSelected?.getChildNameCacheFile() ?: "")))
-                        EventBus.getDefault().post(HandleImageEvent(HandleImageEvent.UPDATE_IMAGE_LIST_EVENT, imageSelected, isGotoFilterMode, position))
+                            Uri.fromFile(
+                                File(
+                                    requireContext().cacheDir,
+                                    imageSelected?.getChildNameCacheFile() ?: ""
+                                )
+                            )
+                        )
+                        EventBus.getDefault().post(
+                            HandleImageEvent(
+                                HandleImageEvent.UPDATE_IMAGE_LIST_EVENT,
+                                imageSelected,
+                                isGotoFilterMode,
+                                position
+                            )
+                        )
                     }
                 }
 
                 override fun onCropFailure(t: Throwable) {
-                    Log.d("PREVIEW_VIDEO_FRAGMENT", "FAILURE----------------------------------${t.message}-------------------------------------")
+                    Log.d(
+                        "PREVIEW_VIDEO_FRAGMENT",
+                        "FAILURE----------------------------------${t.message}-------------------------------------"
+                    )
                     CoroutineExt.runOnMain {
-                        EventBus.getDefault().post(HandleImageEvent(HandleImageEvent.RETRY_CROP_IMAGE_TO_PREVIEW_SCREEN))
+                        EventBus.getDefault()
+                            .post(HandleImageEvent(HandleImageEvent.RETRY_CROP_IMAGE_TO_PREVIEW_SCREEN))
                     }
                 }
             })
@@ -147,7 +189,10 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
 
     private fun addBlockingView() {
         myBlockingView = RelativeLayout(requireContext())
-        val layoutParam: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val layoutParam: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         myBlockingView.layoutParams = layoutParam
         myBlockingView.isClickable = true
         binding.container.addView(myBlockingView)
@@ -159,11 +204,12 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
         super.onResume()
         if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
     }
-    
+
     override fun onPause() {
         super.onPause()
         EventBus.getDefault().unregister(this)
     }
+
     @SuppressLint("RtlHardcoded")
     @Subscribe
     fun onMessageEvent(event: HandleImageEvent) {
@@ -172,20 +218,28 @@ class CropImgFragment: BaseFragment<LayoutCropImageBinding>() {
                 myGestureCropImageView?.postRotate(90F)
                 myGestureCropImageView?.setImageToWrapCropBounds()
             }
+
             HandleImageEvent.CROP_SAVE_IMAGE_EVENT -> {
                 CoroutineExt.runOnIO {
                     cropAndSaveImage()
                 }
 
             }
-            HandleImageEvent.UPDATE_IMAGE_FILTER_BRIGHTNESS_IN_LIST_IMAGE_SELECTED ->{
+
+            HandleImageEvent.UPDATE_IMAGE_FILTER_BRIGHTNESS_IN_LIST_IMAGE_SELECTED -> {
                 imageSelected = event.imageSelected
                 try {
                     myGestureCropImageView?.setImageUri(
                         Uri.parse(imageSelected?.uriResultCutImageInCache ?: ""),
-                        Uri.fromFile(File(requireContext().cacheDir, imageSelected?.getChildNameCacheFile() ?: ""))
+                        Uri.fromFile(
+                            File(
+                                requireContext().cacheDir,
+                                imageSelected?.getChildNameCacheFile() ?: ""
+                            )
+                        )
                     )
-                } catch (e: Exception) {}
+                } catch (e: Exception) {
+                }
             }
         }
         EventBus.getDefault().removeStickyEvent(event)

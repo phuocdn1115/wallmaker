@@ -7,5 +7,6 @@ data class ImageFilter(
     val name: String? = "",
     val filter: GPUImageFilter = GPUImageFilter(),
     val filterPreview: Bitmap? = null,
+    val filterSave: Bitmap? = null,
     var isSelected: Boolean = false
 )

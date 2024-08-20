@@ -37,7 +37,7 @@ class FilterImageFragment : BaseFragment<LayoutListFilterBrightnessBinding>() {
     val onSaveFilterImage = object :() -> Unit {
         override fun invoke() {
             Log.d("SAVE_FILTERED_IMAGE", "-------------------------------------------------")
-            PhotoUtils.saveImageToCache(listImageFilter[oldPositionSelected]?.filterPreview, requireContext(),
+            PhotoUtils.saveImageToCache(listImageFilter[oldPositionSelected]?.filterSave, requireContext(),
                 imageSelected, onSuccess = {
                     imageSelected?.uriResultCutImageInCache = it.toString()
                     imageSelected?.uriResultFilterImageInCache = it.toString()
@@ -45,7 +45,7 @@ class FilterImageFragment : BaseFragment<LayoutListFilterBrightnessBinding>() {
                 }, onFailure = { message ->
                     Log.d("SAVE_FILTERED_IMAGE", message ?:"")
                 })
-           imageSelected?.bitmap = listImageFilter[oldPositionSelected]?.filterPreview
+           imageSelected?.bitmap = listImageFilter[oldPositionSelected]?.filterSave
             EventBus.getDefault().post(HandleImageEvent(HandleImageEvent.SAVE_FILTER_BRIGHTNESS_EVENT, imageFilterSelected, imageSelected))
         }
 
@@ -176,7 +176,7 @@ class FilterImageFragment : BaseFragment<LayoutListFilterBrightnessBinding>() {
                             filterPreview = bitmap
                         )))
                     refreshUI()
-                    viewModel.loadImageFilter(bitmap)
+                    viewModel.loadImageFilter(imageSelected)
                 }
             }
         }
