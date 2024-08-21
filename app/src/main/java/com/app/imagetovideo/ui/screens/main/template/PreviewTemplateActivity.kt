@@ -114,7 +114,8 @@ class PreviewTemplateActivity : BaseActivity<ActivityPreviewTemplateBinding>() {
     }
 
     private fun configTemplateVideo(filePath : String ?= null) {
-        val mediaUriWallpaperLive = if(filePath == null) Uri.parse("${ApplicationContext.getNetworkContext().videoURL}${myTemplate?.originUrlString()}")
+        val mediaUriWallpaperLive = if(filePath == null) Uri.parse("")
+//        Uri.parse("${ApplicationContext.getNetworkContext().videoURL}${myTemplate?.originUrlString()}")
         else Uri.parse(filePath)
         myPayable = ExoPlayable(ToroExo.with(this).defaultCreator, mediaUriWallpaperLive, null)
             .also {

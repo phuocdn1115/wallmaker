@@ -17,10 +17,10 @@ class PreviewActivityVM @Inject constructor(
 
     val downloadWallpaperVideoResult = SingleLiveEvent<Result<String>>()
     fun downloadVideo(dataModel: Wallpaper) {
-        val request = mainRepository.downloadVideo(dataModel)
-        downloadWallpaperVideoResult.addSource(request) {
-            downloadWallpaperVideoResult.postValue(it)
-        }
+//        val request = mainRepository.downloadVideo(dataModel)
+//        downloadWallpaperVideoResult.addSource(request) {
+//            downloadWallpaperVideoResult.postValue(it)
+//        }
     }
 
     val downloadThumbTemplateResult = SingleLiveEvent<Result<String>>()

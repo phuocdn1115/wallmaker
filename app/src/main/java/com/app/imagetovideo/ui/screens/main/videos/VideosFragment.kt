@@ -60,7 +60,7 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
     val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             var isGranted = true
-            permissions.forEach{
+            permissions.forEach {
                 if (!it.value)
                     isGranted = false
             }
@@ -122,14 +122,17 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
             dataHomeResult.observe(this@VideosFragment) { result ->
                 when (result) {
                     is Result.InProgress -> {
+                        Log.i("CHECK_LOG", "START_LOADING")
                         if (dataListVideo.isEmpty())
                             showLoading(true)
                     }
 
                     is Result.Success -> {
                         showLoading(false) {
-                            myProcessData(result.data)
-                            adapterVideosInHome.notifyDataSetChanged()
+                        Log.i("CHECK_LOG", "RESULT_SUCCESS: ${result.data}")
+
+                        myProcessData(result.data)
+                        adapterVideosInHome.notifyDataSetChanged()
                         }
                         /**
                          * Check load Ads first time

@@ -32,20 +32,6 @@ data class Wallpaper(
     var urlShare: String? = "",
     var pathCacheTemplate : String ?= null
 )  : Serializable, Data() {
-    fun minThumbURLString(): String {
-        return if (!type.isNullOrBlank() ) {
-            val fileName = url?.let { FileUtils.getFileName(it) }
-            val lastPath = "thumbs/" + (fileName?.replace(".mp4", ".jpg") ?: "")
-            val path = fileName?.let { url?.replace(it, lastPath) }
-            "${ ApplicationContext.getNetworkContext().videoURL}$path"
-        } else {
-            "${ApplicationContext.getNetworkContext().imageURL}minthumbnails/$url"
-        }
-    }
-
-    fun originUrlString(): String {
-          return "${ApplicationContext.getNetworkContext().videoURL}$url"
-    }
 
     fun convertToTemplateObject() : Template {
         return Template(
@@ -60,23 +46,4 @@ data class Wallpaper(
         )
     }
 
-    fun convertToWallpaperDownloaded(): WallpaperDownloaded {
-        var wallpaperDownloaded = WallpaperDownloaded()
-        wallpaperDownloaded.name = this.name.toString()
-        wallpaperDownloaded.id = this.id.toString()
-        wallpaperDownloaded.wallpaperType = WallpaperType.VIDEO_SUGGESTION_TYPE.value
-        wallpaperDownloaded.pathInStorage = this.url.toString()
-        wallpaperDownloaded.imageThumb = this.minThumbURLString()
-        return wallpaperDownloaded
-    }
-
-    fun convertToWallpaperDownloaded(pathInStorage: String): WallpaperDownloaded {
-        var wallpaperDownloaded = WallpaperDownloaded()
-        wallpaperDownloaded.name = this.name.toString()
-        wallpaperDownloaded.id = this.id.toString()
-        wallpaperDownloaded.wallpaperType = WallpaperType.VIDEO_SUGGESTION_TYPE.value
-        wallpaperDownloaded.pathInStorage = pathInStorage
-        wallpaperDownloaded.imageThumb = this.minThumbURLString()
-        return wallpaperDownloaded
-    }
 }

@@ -19,3 +19,42 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgent
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.app.Fragment
+
+-keep public class * extends android.view.View {
+ public <init>(android.content.Context);
+ public <init>(android.content.Context, android.util.AttributeSet);
+ public <init>(android.content.Context, android.util.AttributeSet, int);
+ public void set*(...);
+}
+
+-keep public class  com.app.imagetovideo.ui.skeleton.*
+
+-keepclassmembers class * extends android.app.Activity {
+ public void *(android.view.View);
+}
+
+-keep class * implements android.os.Parcelable {
+ public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+ public static <fields>;
+}
+
+-dontwarn android.support.**
+-dontwarn com.google.ads.**

@@ -60,11 +60,11 @@ class GlideModule: AppGlideModule() {
         builder.setLogLevel(Log.DEBUG);
     }
 
-    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        registry.replace(
-            GlideUrl::class.java, InputStream::class.java,  OkHttpUrlLoader.Factory(
-                WallpaperMakerApp.instance.okHttpClient))
-    }
+//    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+//        registry.replace(
+//            GlideUrl::class.java, InputStream::class.java,  OkHttpUrlLoader.Factory(
+//                WallpaperMakerApp.instance.okHttpClient))
+//    }
 
     /**
      * @return Set manifest parsing, set to false to avoid adding the same modules twice

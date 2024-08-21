@@ -10,7 +10,6 @@ import com.app.imagetovideo.ui.screens.main.MainActivity
 import com.app.imagetovideo.ui.screens.main.profile.PrivacyPolicyActivity
 import com.app.imagetovideo.ui.screens.main.template.NewPreviewTemplateActivity
 import com.app.imagetovideo.ui.screens.main.template.PreviewTemplateActivity
-import com.app.imagetovideo.ui.screens.preview_home.PreviewActivity
 import com.app.imagetovideo.ui.screens.set_home.SetWallpaperActivity
 import com.app.imagetovideo.utils.EXTRA_DATA_MODEL
 import com.app.imagetovideo.utils.EXTRA_TEMPLATE
@@ -18,7 +17,7 @@ import com.app.imagetovideo.utils.EXTRA_WALLPAPER_DOWNLOADED
 import javax.inject.Singleton
 
 @Singleton
-class NavigationManager (private val context: Context) {
+class NavigationManager(private val context: Context) {
 
     fun navigationToEditorScreen(template: Template? = null) {
         val intent = Intent(context, EditorActivity::class.java)
@@ -27,16 +26,9 @@ class NavigationManager (private val context: Context) {
         context.startActivity(intent)
     }
 
-    fun navigationToPreviewScreen(dataModel: Wallpaper) {
-        val intent = Intent(context, PreviewActivity::class.java)
-        intent.putExtra(EXTRA_DATA_MODEL, dataModel)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-    }
-
     fun navigationToSetWallpaperActivity(wallpaperDownloaded: WallpaperDownloaded) {
         val intent = Intent(context, SetWallpaperActivity::class.java)
-        intent.putExtra(EXTRA_WALLPAPER_DOWNLOADED, wallpaperDownloaded )
+        intent.putExtra(EXTRA_WALLPAPER_DOWNLOADED, wallpaperDownloaded)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }

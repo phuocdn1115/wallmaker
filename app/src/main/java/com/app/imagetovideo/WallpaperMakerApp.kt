@@ -8,8 +8,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class WallpaperMakerApp: Application() {
-    @Inject
-    lateinit var okHttpClient : OkHttpClient
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
@@ -23,6 +21,5 @@ class WallpaperMakerApp: Application() {
     companion object {
         lateinit var instance: WallpaperMakerApp
         fun getContext(): Context = instance.applicationContext
-        fun getOkHttpClient() = instance.okHttpClient
     }
 }
