@@ -93,7 +93,7 @@ fun PreviewVideoFragment.saveImage(onSaveImageProgressListener: SaveImageProgres
     val saved: Boolean
     val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, Uri.parse(uriImagePrepareToSaveIfWallpaperIsImage))
     val name = String.format(
-        "wallpaper_maker_%s",
+        "wall_style_%s",
         SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(System.currentTimeMillis())
     )
     val fos: OutputStream?

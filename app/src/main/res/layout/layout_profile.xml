@@ -88,7 +88,9 @@
                             android:id="@+id/switch_setting_noti"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
+                            android:checked="false"
+                            android:enabled="false"
+                            android:clickable="false"
                             android:thumb="@drawable/thumb_background"
                             android:track="@drawable/track_background"
                             app:showText="false"
@@ -181,85 +183,7 @@
                 app:cardElevation="@dimen/dp0"
                 app:layout_constraintTop_toBottomOf="@+id/tv_label_other_app">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dp15"
-                    android:paddingBottom="@dimen/dp15"
-                    android:visibility="gone">
 
-                    <ImageView
-                        android:id="@+id/img_ic_other_app_ringo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp10"
-                        android:src="@drawable/ic_ringo"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_label_ringo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp14"
-                        android:fontFamily="@font/beviet_medium"
-                        android:text="Ringo"
-                        android:textColor="@color/color_131313"
-                        android:textSize="@dimen/sp14"
-                        app:layout_constraintStart_toEndOf="@+id/img_ic_other_app_ringo"
-                        app:layout_constraintTop_toTopOf="@id/img_ic_other_app_ringo"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_other_app_ringo"/>
-
-                    <!-- Wallla -->
-
-                    <ImageView
-                        android:id="@+id/img_ic_wallla"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp20"
-                        android:src="@drawable/ic_wallla"
-                        app:layout_constraintStart_toStartOf="@+id/img_ic_other_app_ringo"
-                        app:layout_constraintTop_toBottomOf="@+id/img_ic_other_app_ringo" />
-
-                    <TextView
-                        android:id="@+id/tv_walla"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/beviet_medium"
-                        android:text="Wallla"
-                        android:textColor="@color/color_131313"
-                        android:textSize="@dimen/sp14"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_label_ringo"
-                        app:layout_constraintTop_toTopOf="@id/img_ic_wallla"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_wallla"/>
-
-
-                    <!-- Ring Android -->
-
-                    <ImageView
-                        android:id="@+id/img_ic_ring_android"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp20"
-                        android:src="@drawable/ic_ring_android"
-                        app:layout_constraintStart_toStartOf="@+id/img_ic_wallla"
-                        app:layout_constraintTop_toBottomOf="@+id/img_ic_wallla" />
-
-                    <TextView
-                        android:id="@+id/tv_ring_android"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/beviet_medium"
-                        android:text="Nhạc chuông Android"
-                        android:textColor="@color/color_131313"
-                        android:textSize="@dimen/sp14"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_walla"
-                        app:layout_constraintTop_toTopOf="@id/img_ic_ring_android"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_ic_ring_android"/>
-
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 

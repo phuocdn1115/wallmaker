@@ -129,10 +129,10 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
 
                     is Result.Success -> {
                         showLoading(false) {
-                        Log.i("CHECK_LOG", "RESULT_SUCCESS: ${result.data}")
+                            Log.i("CHECK_LOG", "RESULT_SUCCESS: ${result.data}")
 
-                        myProcessData(result.data)
-                        adapterVideosInHome.notifyDataSetChanged()
+                            myProcessData(result.data)
+                            adapterVideosInHome.notifyDataSetChanged()
                         }
                         /**
                          * Check load Ads first time
@@ -176,7 +176,8 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
     }
 
     private fun myProcessData(result: DataHomeResponse) {
-        val dataResponse = result.data.data as ArrayList<Data>
+        val dataResponse =
+            if (result.data != null) result.data.data as ArrayList<Data> else arrayListOf()
         dataListVideo.add(NewVideo())
         for (position in dataResponse.indices) {
             val itemInDataResponse = dataResponse[position] as Wallpaper

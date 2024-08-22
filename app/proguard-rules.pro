@@ -42,11 +42,12 @@
  public void set*(...);
 }
 
--keep public class  com.app.imagetovideo.ui.skeleton.*
-
+-keep class  com.app.imagetovideo.ui.skeleton.*
 -keepclassmembers class * extends android.app.Activity {
  public void *(android.view.View);
 }
+-keep class com.app.imagetovideo.data.response** {*;}
+
 
 -keep class * implements android.os.Parcelable {
  public static final android.os.Parcelable$Creator *;
