@@ -11,7 +11,7 @@ import com.app.imagetovideo.R
 import com.app.imagetovideo.databinding.ItemAddImageBinding
 import com.app.imagetovideo.databinding.ItemImageSelectedHorizontalBinding
 import com.app.imagetovideo.model.ImageSelected
-import com.app.imagetovideo.utils.AnimationAppUtils.pushDownClickAnimation
+import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.bumptech.glide.Glide
 
 class ImageSelectorHorizontalAdapter(
@@ -91,7 +91,7 @@ class ImageSelectorHorizontalAdapter(
             } else {
                 binding.cardViewImageSelected.setCardBackgroundColor(Color.TRANSPARENT)
             }
-            pushDownClickAnimation(0.95F, binding.root) {
+            binding.root.setSafeOnClickListener {
                 onClickImageSelected.invoke(position, data)
             }
         }

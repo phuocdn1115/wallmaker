@@ -5,8 +5,6 @@ android {
     defaultConfig {
         minSdk rootProject.ext.minSupportSDKVersion
         targetSdk rootProject.ext.androidVersion
-        versionCode releaseVersionCode
-        versionName releaseVersion
     }
     buildTypes {
         release {
@@ -14,6 +12,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.hw.photomovie'
 }
 
 dependencies {

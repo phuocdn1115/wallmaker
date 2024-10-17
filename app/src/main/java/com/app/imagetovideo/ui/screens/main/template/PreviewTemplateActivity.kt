@@ -2,11 +2,15 @@ package com.app.imagetovideo.ui.screens.main.template
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import com.app.imagetovideo.R
 import com.app.imagetovideo.aplication.ApplicationContext
 import com.app.imagetovideo.base.BaseActivity
@@ -23,13 +27,7 @@ import com.app.imagetovideo.utils.EXTRA_TEMPLATE
 import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.utils.ToastUtil
 import com.app.imagetovideo.utils.setSafeOnClickListener
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.metadata.Metadata
-import com.google.android.exoplayer2.text.Cue
 import dagger.hilt.android.AndroidEntryPoint
-import im.ene.toro.exoplayer.ExoPlayable
-import im.ene.toro.exoplayer.Playable
-import im.ene.toro.exoplayer.ToroExo
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -43,7 +41,7 @@ class PreviewTemplateActivity : BaseActivity<ActivityPreviewTemplateBinding>() {
     lateinit var navigationManager: NavigationManager
 
     private var myTemplate: Template? = null
-    private var myPayable: Playable? = null
+    private var player: ExoPlayer? = null
     var requestPermissionStorageDialog: DialogRequestPermissionStorage? = null
 
     override fun getContentLayout(): Int = R.layout.activity_preview_template
@@ -117,35 +115,23 @@ class PreviewTemplateActivity : BaseActivity<ActivityPreviewTemplateBinding>() {
         val mediaUriWallpaperLive = if(filePath == null) Uri.parse("")
 //        Uri.parse("${ApplicationContext.getNetworkContext().videoURL}${myTemplate?.originUrlString()}")
         else Uri.parse(filePath)
-        myPayable = ExoPlayable(ToroExo.with(this).defaultCreator, mediaUriWallpaperLive, null)
-            .also {
-                it.prepare(true)
-                it.play()
-            }
-        myPayable?.playerView = binding.playerView
-        binding.playerView.player?.repeatMode = Player.REPEAT_MODE_ONE
-        myPayable?.addEventListener(object : Playable.EventListener {
+        player = ExoPlayer.Builder(this).build()
+        binding.playerView.player = player
+        val uri : Uri = Uri.Builder()
+            .scheme(ContentResolver. SCHEME_ANDROID_RESOURCE)
+            .path(R.raw.intro_splash.toString()).build()
+        val mediaItem: MediaItem = MediaItem.fromUri(uri)
+        player?.setMediaItem(mediaItem)
+        player?.prepare()
+        player?.playWhenReady = true
+        player?.addListener( object : Player.Listener {
             override fun onRenderedFirstFrame() {
-                binding.imgThumbPreview.animate().alpha(0f).duration = 300
+                Log.i("SPLASH_ACTIVITY", "onRenderedFirstFrame: ")
             }
 
-            override fun onCues(cues: MutableList<Cue>) {}
-
-            override fun onMetadata(metadata: Metadata) {}
-
-            override fun onLoadingChanged(isLoading: Boolean) {}
-
-            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {}
-
-            override fun onRepeatModeChanged(repeatMode: Int) {}
-
-            override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {}
-
-            override fun onPositionDiscontinuity(reason: Int) {}
-
-            override fun onSeekProcessed() {}
-
-            override fun onVideoSizeChanged(width: Int, height: Int, unappliedRotationDegrees: Int, pixelWidthHeightRatio: Float) {}
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                Log.i("SPLASH_ACTIVITY", "onIsPlayingChanged: $isPlaying")
+            }
         })
     }
 
@@ -156,9 +142,8 @@ class PreviewTemplateActivity : BaseActivity<ActivityPreviewTemplateBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        myPayable?.playerView = null
-        myPayable?.release()
-        myPayable = null
+        player?.release()
+        player = null
         EventBus.getDefault().unregister(this)
     }
 

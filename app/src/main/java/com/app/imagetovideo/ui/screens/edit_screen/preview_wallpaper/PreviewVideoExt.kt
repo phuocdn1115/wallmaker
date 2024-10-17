@@ -149,7 +149,7 @@ fun PreviewVideoFragment.saveImage(onSaveImageProgressListener: SaveImageProgres
         onSaveImageProgressListener.onSuccess(wallpaperDownloaded)
 
     }
-    saved = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos) == true
+    saved = fos?.let { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) } == true
     if (!saved) onSaveImageProgressListener.onFailure("Save image failure!!")
     Log.d("SAVE_IMAGE", "$saved")
     fos?.flush()

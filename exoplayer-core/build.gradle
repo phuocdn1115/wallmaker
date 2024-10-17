@@ -22,10 +22,8 @@ android {
   defaultConfig {
     minSdkVersion rootProject.ext.minSupportSDKVersion
     targetSdkVersion rootProject.ext.androidVersion
-    versionCode releaseVersionCode
-    versionName "v" + releaseVersion
 
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+      testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     buildConfigField("String", "LIB_NAME", "\"" + "ToroLib, v" + releaseVersion + "\"")
   }
 
@@ -46,6 +44,7 @@ android {
     }
 
   }
+    namespace 'im.ene.toro'
 }
 
 dependencies {

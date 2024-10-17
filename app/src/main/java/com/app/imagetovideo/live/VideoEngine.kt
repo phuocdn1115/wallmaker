@@ -4,22 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.SurfaceHolder
+import androidx.annotation.OptIn
+import androidx.media3.common.C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
 import com.app.imagetovideo.PreferencesKey.URL_WALLPAPER_LIVE_IF_PREVIEW
 import com.app.imagetovideo.PreferencesKey.URL_WALLPAPER_LIVE_IF_SET
 import com.app.imagetovideo.PreferencesManager
 import com.app.imagetovideo.WallpaperMakerApp
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.ContentDataSource
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.FileDataSource
 
 class VideoEngine(private val context: Context, private val preferencesManager: PreferencesManager): WallpaperEngine() {
-    private var exoPlayer: SimpleExoPlayer? = null
+    private var exoPlayer: ExoPlayer? = null
     private var lastNameUrl: String? = null
 
     override fun onSurfaceCreated(holder: SurfaceHolder) {
@@ -38,18 +36,19 @@ class VideoEngine(private val context: Context, private val preferencesManager: 
         release()
     }
 
+    @OptIn(UnstableApi::class)
     @Synchronized
     private fun playVideo() {
         val holder = surfaceHolder ?: return
         if (!isVisible) return
         if (exoPlayer == null) {
-            exoPlayer = SimpleExoPlayer.Builder(context).build().apply {
+            exoPlayer = ExoPlayer.Builder(context).build().apply {
                 setVideoSurfaceHolder(holder)
-                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
+                videoScalingMode = VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
                 volume = 0f
                 repeatMode = Player.REPEAT_MODE_ONE
-                addListener(object : Player.EventListener {
-                    override fun onPlayerError(error: ExoPlaybackException) {
+                addListener(object : Player.Listener {
+                    override fun onPlayerError(error: PlaybackException) {
                         lastNameUrl = null
                         if (isPreview) {
                             context.stopService(Intent(WallpaperMakerApp.instance, LiveWallpaperService::class.java))
@@ -65,15 +64,15 @@ class VideoEngine(private val context: Context, private val preferencesManager: 
                 exoPlayer?.playWhenReady = true
                 return
             }
-            val factory = if (temp.startsWith("content://")) DataSource.Factory {
-                ContentDataSource(WallpaperMakerApp.instance).apply {
-                    open(DataSpec(uri))
-                }
-            }
-            else DataSource.Factory { FileDataSource() }
-            val dataSource = ProgressiveMediaSource.Factory(factory).createMediaSource(uri)
+//            val factory = if (temp.startsWith("content://")) DataSource.Factory {
+//                ContentDataSource(WallpaperMakerApp.instance).apply {
+//                    open(DataSpec(uri))
+//                }
+//            }
+//            else DataSource.Factory { FileDataSource() }
+//            val dataSource = ProgressiveMediaSource.Factory(factory).createMediaSource(MediaItem.fromUri(uri))
             exoPlayer?.apply {
-                prepare(dataSource)
+                setMediaItem(MediaItem.fromUri(uri))
                 playWhenReady = true
                 lastNameUrl = temp
             }
@@ -100,7 +99,7 @@ class VideoEngine(private val context: Context, private val preferencesManager: 
     @Synchronized
     private fun stopVideo() {
         try {
-            exoPlayer?.stop(true)
+            exoPlayer?.stop()
             lastNameUrl = null
         } catch (e: Exception) {
 

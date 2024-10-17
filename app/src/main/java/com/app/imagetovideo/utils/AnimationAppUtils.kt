@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import com.app.imagetovideo.ext.CoroutineExt
-import com.thekhaeng.pushdownanim.PushDownAnim
 
 object AnimationAppUtils {
     fun animateFollowY(view: View, duration: Long, valueY: Float) {
@@ -84,17 +83,6 @@ object AnimationAppUtils {
             this.duration = duration
             this.start()
         }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    fun pushDownClickAnimation(scale: Float = 0.95f, view: View, callbackAction: () -> Unit) {
-        PushDownAnim.setPushDownAnimTo(view)
-            .setScale(PushDownAnim.MODE_SCALE, scale)
-            .setOnClickListener {
-                CoroutineExt.runOnMainAfterDelay(112) {
-                    callbackAction.invoke()
-                }
-            }
     }
 
 }

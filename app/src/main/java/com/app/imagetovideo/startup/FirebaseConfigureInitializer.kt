@@ -11,7 +11,7 @@ class FirebaseConfigureInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         Log.i(TAG, "REMOTE_CONFIG::FirebaseConfigureInitializer")
-        fetchRemoteConfig(context.getDeviceId(), ApplicationContext.getNetworkContext().countryKey, context)
+        //fetchRemoteConfig(context.getDeviceId(), ApplicationContext.getNetworkContext().countryKey, context)
     }
 
     companion object {

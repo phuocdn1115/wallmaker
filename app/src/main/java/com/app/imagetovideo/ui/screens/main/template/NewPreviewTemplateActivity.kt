@@ -26,13 +26,7 @@ import com.app.imagetovideo.utils.EXTRA_TEMPLATE
 import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.utils.ToastUtil
 import com.app.imagetovideo.utils.setSafeOnClickListener
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.metadata.Metadata
-import com.google.android.exoplayer2.text.Cue
 import dagger.hilt.android.AndroidEntryPoint
-import im.ene.toro.exoplayer.ExoPlayable
-import im.ene.toro.exoplayer.Playable
-import im.ene.toro.exoplayer.ToroExo
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject

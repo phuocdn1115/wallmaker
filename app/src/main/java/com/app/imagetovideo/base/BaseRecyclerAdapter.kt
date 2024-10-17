@@ -18,13 +18,13 @@ abstract class BaseRecyclerAdapter<T, V : RecyclerView.ViewHolder?>(dataSet: Mut
     abstract fun setViewHolderLifeCircle(): ViewHolderLifecycle?
     abstract fun onCreateBasicViewHolder(binding: ViewDataBinding?): V
     abstract fun onBindBasicItemView(holder: V, position: Int)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): V {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): V & Any {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate(layoutInflater, getLayoutResourceItem(), parent, false) as ViewDataBinding
-        return onCreateBasicViewHolder(binding)
+        return onCreateBasicViewHolder(binding)  as (V & Any)
     }
 
-    override fun onBindViewHolder(holder: V, position: Int) {
+    override fun onBindViewHolder(holder: V & Any, position: Int) {
         onBindBasicItemView(holder, position)
     }
 
@@ -32,12 +32,12 @@ abstract class BaseRecyclerAdapter<T, V : RecyclerView.ViewHolder?>(dataSet: Mut
         return if (dataSet == null) 0 else dataSet!!.size
     }
 
-    override fun onViewAttachedToWindow(holder: V) {
+    override fun onViewAttachedToWindow(holder: V & Any) {
         super.onViewAttachedToWindow(holder)
         setViewHolderLifeCircle()?.onStart()
     }
 
-    override fun onViewDetachedFromWindow(holder: V) {
+    override fun onViewDetachedFromWindow(holder: V & Any) {
         super.onViewDetachedFromWindow(holder)
         setViewHolderLifeCircle()?.onDestroy()
     }

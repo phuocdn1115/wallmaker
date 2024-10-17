@@ -38,13 +38,7 @@ import com.app.imagetovideo.utils.ToastUtil
 import com.app.imagetovideo.utils.extension.decodeBitmap
 import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.blankj.utilcode.util.NetworkUtils
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.metadata.Metadata
-import com.google.android.exoplayer2.text.Cue
 import dagger.hilt.android.AndroidEntryPoint
-import im.ene.toro.exoplayer.ExoPlayable
-import im.ene.toro.exoplayer.Playable
-import im.ene.toro.exoplayer.ToroExo
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import org.greenrobot.eventbus.EventBus
@@ -65,7 +59,6 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
     var chooseTypeSettingBottomSheet: DialogChooseTypeSettingBottomSheet? = null
     var setImageWallpaperSuccessDialog: DialogSetImageWallpaperSuccess? = null
 
-    private var myPlayable: Playable? = null
     private var dataWallpaper: WallpaperDownloaded?= null
 
     override fun getContentLayout(): Int = R.layout.activity_set_wallpaper
@@ -208,36 +201,7 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
 
     private fun configWallpaperLive(urlVideo: String?) {
         val mediaUriWallpaperLive = Uri.parse(urlVideo)
-        myPlayable = ExoPlayable(ToroExo.with(this).defaultCreator, mediaUriWallpaperLive, null)
-            .also {
-                it.prepare(true)
-                it.play()
-            }
-        myPlayable?.playerView = binding.playerView
-        binding.playerView.player?.repeatMode = Player.REPEAT_MODE_ONE
-        myPlayable?.addEventListener(object : Playable.EventListener {
-            override fun onRenderedFirstFrame() {
-                binding.imgSet.animate().alpha(0f).duration = 300
-            }
 
-            override fun onCues(cues: MutableList<Cue>) {}
-
-            override fun onMetadata(metadata: Metadata) {}
-
-            override fun onLoadingChanged(isLoading: Boolean) {}
-
-            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {}
-
-            override fun onRepeatModeChanged(repeatMode: Int) {}
-
-            override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {}
-
-            override fun onPositionDiscontinuity(reason: Int) {}
-
-            override fun onSeekProcessed() {}
-
-            override fun onVideoSizeChanged(width: Int, height: Int, unappliedRotationDegrees: Int, pixelWidthHeightRatio: Float) {}
-        })
     }
 
     private fun setLiveWallpaper() {
@@ -285,8 +249,5 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        myPlayable?.playerView = null
-        myPlayable?.release()
-        myPlayable = null
     }
 }
