@@ -3,17 +3,14 @@ package com.app.imagetovideo.ui.screens.splash
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.REPEAT_MODE_ONE
-import androidx.media3.datasource.RawResourceDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import com.app.imagetovideo.R
-import com.app.imagetovideo.ads.openapp.OpenAppAdsManager
 import com.app.imagetovideo.base.BaseActivity
 import com.app.imagetovideo.base.BaseLoadingView
 import com.app.imagetovideo.base.ConnectionLiveData
@@ -33,9 +30,6 @@ import javax.inject.Inject
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     @Inject
-    lateinit var openAppAdsManager: OpenAppAdsManager
-
-    @Inject
     lateinit var navigationManager: NavigationManager
 
     @Inject
@@ -44,7 +38,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     private val mainVM: MainVM by viewModels()
 
     override fun initView() {
-        openAppAdsManager.switchOnOff(false)
         StatusBarUtils.makeStatusBarTransparentAndLight(this)
         /**
          * don't load Ads here

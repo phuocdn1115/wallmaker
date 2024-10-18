@@ -10,8 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.imagetovideo.R
-import com.app.imagetovideo.ads.nativeads.NativeAdsInHomeManager
-import com.app.imagetovideo.ads.openapp.OpenAppAdsManager
 import com.app.imagetovideo.aplication.ApplicationContext
 import com.app.imagetovideo.base.BaseFragment
 import com.app.imagetovideo.base.BaseLoadingView
@@ -46,8 +44,6 @@ import kotlin.math.abs
 @AndroidEntryPoint
 class VideosFragment : BaseFragment<LayoutVideoBinding>() {
 
-    @Inject
-    lateinit var openAppAdsManager: OpenAppAdsManager
 
     @Inject
     lateinit var navigationManager: NavigationManager
@@ -55,8 +51,6 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
     @Inject
     lateinit var connectionLiveData: ConnectionLiveData
 
-    @Inject
-    lateinit var nativeAdsInHomeManager: NativeAdsInHomeManager
     val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             var isGranted = true
@@ -139,7 +133,6 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
                          */
                         if (!ApplicationContext.getAdsContext().isLoadAds) {
                             ApplicationContext.getAdsContext().isLoadAds = true
-                            openAppAdsManager.switchOnOff(true)
                             mainVM.loadAds()
                         }
                     }
@@ -170,7 +163,6 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
             .addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     activity?.finish()
-                    openAppAdsManager.switchOnOff(false)
                 }
             })
     }
@@ -237,7 +229,6 @@ class VideosFragment : BaseFragment<LayoutVideoBinding>() {
                 navigationManager.navigationToNewPreviewTemplateActivity(template)
             }
         )
-        adapterVideosInHome.setNativeAdsManager(nativeAdsInHomeManager)
         binding.rvVideos.adapter = adapterVideosInHome
     }
 

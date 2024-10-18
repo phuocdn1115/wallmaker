@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.app.imagetovideo.R
-import com.app.imagetovideo.ads.banner.BannerAdsManager
 import com.app.imagetovideo.aplication.ApplicationContext.sessionContext
 import com.app.imagetovideo.base.BaseFragment
 import com.app.imagetovideo.base.BaseLoadingView
@@ -39,8 +38,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
-    @Inject
-    lateinit var bannerAdsManager: BannerAdsManager
 
     private val editorVM: EditorVM by activityViewModels()
     private var handleImageMode = HandleImageMode.MODE_CROP
@@ -90,7 +87,6 @@ class HandleImgFragment: BaseFragment<LayoutHandleImageBinding>() {
         initUI()
         refreshDataUI()
         initViewPagerDescriptionControl()
-        bannerAdsManager.loadAdsBanner(binding.layoutAds)
     }
 
     private fun initUI() {

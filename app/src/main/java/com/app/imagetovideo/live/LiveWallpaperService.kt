@@ -4,7 +4,6 @@ import android.service.wallpaper.WallpaperService
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import com.app.imagetovideo.PreferencesManager
-import com.app.imagetovideo.ads.openapp.OpenAppAdsManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -13,8 +12,6 @@ class LiveWallpaperService : WallpaperService() {
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
-    @Inject
-    lateinit var openAppAdsManager: OpenAppAdsManager
     override fun onCreateEngine(): Engine {
         return LiveWallpaperEngine(
             VideoEngine(
@@ -37,7 +34,6 @@ class LiveWallpaperService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder) {
             super.onCreate(surfaceHolder)
-            openAppAdsManager.switchOnOff(false)
             engine.setup(this, surfaceHolder)
             if (engine is VideoEngine) {
                 setTouchEventsEnabled(true)
@@ -64,7 +60,6 @@ class LiveWallpaperService : WallpaperService() {
 
         override fun onDestroy() {
             super.onDestroy()
-            openAppAdsManager.switchOnOff(true)
         }
     }
 }

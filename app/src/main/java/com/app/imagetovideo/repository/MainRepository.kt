@@ -14,7 +14,6 @@ import com.app.imagetovideo.data.model.Wallpaper
 import com.app.imagetovideo.data.realm_model.WallpaperDownloaded
 import com.app.imagetovideo.data.realm_model.WallpaperSuggestionDownloaded
 import com.app.imagetovideo.data.response.DataHomeResponse
-import com.app.imagetovideo.download.DownloadWallpaperManager
 import com.app.imagetovideo.enums.DataType
 import com.app.imagetovideo.enums.WallpaperType
 import com.app.imagetovideo.model.Data
@@ -27,8 +26,7 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val realmManager: RealmManager,
-    private val preferencesManager: PreferencesManager,
-    private val downloadWallpaperManager: DownloadWallpaperManager
+    private val preferencesManager: PreferencesManager
 ) {
 
     fun getHomeDataInLocal(ownerItemCount: Int? = 0): DataHomeResponse {

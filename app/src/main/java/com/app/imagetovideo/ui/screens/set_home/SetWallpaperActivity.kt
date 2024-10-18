@@ -2,6 +2,7 @@ package com.app.imagetovideo.ui.screens.set_home
 
 import android.app.WallpaperManager
 import android.content.ComponentName
+import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,6 +11,10 @@ import android.os.Environment
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.Player.REPEAT_MODE_ONE
+import androidx.media3.exoplayer.ExoPlayer
 import com.app.imagetovideo.R
 import com.app.imagetovideo.WallpaperMakerApp
 import com.app.imagetovideo.ads.nativeads.NativeAdsSetSuccessManager
@@ -200,7 +205,19 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding>() {
     }
 
     private fun configWallpaperLive(urlVideo: String?) {
-        val mediaUriWallpaperLive = Uri.parse(urlVideo)
+        val uri = Uri.parse(urlVideo)
+        val player = ExoPlayer.Builder(this).build()
+        binding.playerView.player = player
+        val mediaItem: MediaItem = MediaItem.fromUri(uri)
+        player.setMediaItem(mediaItem)
+        player.prepare()
+        player.playWhenReady = true
+        player.repeatMode = REPEAT_MODE_ONE
+        player.addListener( object : Player.Listener {
+            override fun onRenderedFirstFrame() {
+                binding.imgSet.animate().alpha(0f).duration = 300
+            }
+        })
 
     }
 

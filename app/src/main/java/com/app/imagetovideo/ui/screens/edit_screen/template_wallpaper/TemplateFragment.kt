@@ -8,9 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.app.imagetovideo.utils.StatusBarUtils
 import com.app.imagetovideo.R
-import com.app.imagetovideo.ads.banner.BannerAdsManager
 import com.app.imagetovideo.base.BaseFragment
 import com.app.imagetovideo.base.BaseLoadingView
 import com.app.imagetovideo.data.model.DataTemplateVideo
@@ -19,10 +17,12 @@ import com.app.imagetovideo.databinding.LayoutTemplateBinding
 import com.app.imagetovideo.enums.EditorTabType
 import com.app.imagetovideo.model.ImageSelected
 import com.app.imagetovideo.ui.adapters.TemplateVideoAdapter
-import com.app.imagetovideo.utils.extension.heightScreen
-import com.app.imagetovideo.utils.extension.widthScreen
+import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import com.app.imagetovideo.utils.BlurViewUtils
 import com.app.imagetovideo.utils.MarginItemDecoration
+import com.app.imagetovideo.utils.StatusBarUtils
+import com.app.imagetovideo.utils.extension.heightScreen
+import com.app.imagetovideo.utils.extension.widthScreen
 import com.app.imagetovideo.utils.setSafeOnClickListener
 import com.hw.photomovie.PhotoMovie
 import com.hw.photomovie.PhotoMovieFactory
@@ -33,14 +33,10 @@ import com.hw.photomovie.model.SimplePhotoData
 import com.hw.photomovie.render.GLSurfaceMovieRenderer
 import com.hw.photomovie.render.GLTextureMovieRender
 import com.hw.photomovie.timer.IMovieTimer
-import com.app.imagetovideo.ui.screens.edit_screen.EditorVM
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TemplateFragment: BaseFragment<LayoutTemplateBinding>() {
-    @Inject
-    lateinit var bannerAdsManager: BannerAdsManager
 
     private val editorVM: EditorVM by activityViewModels()
     private lateinit var movieRender: GLSurfaceMovieRenderer
@@ -128,7 +124,6 @@ class TemplateFragment: BaseFragment<LayoutTemplateBinding>() {
         initAdapter()
         binding.tvNameTemplate.text = listTemplatesVideo[0]?.name
         BlurViewUtils.setupBlurView(requireActivity(), binding.blurView, binding.root.rootView as ViewGroup)
-        bannerAdsManager.loadAdsBanner(binding.layoutAds)
 
         photoMoviePlayer?.setOnPreparedListener(object : PhotoMoviePlayer.OnPreparedListener{
             override fun onPreparing(moviePlayer: PhotoMoviePlayer?, progress: Float) {

@@ -12,7 +12,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.app.imagetovideo.aplication.ApplicationContext
-import com.app.imagetovideo.startup.FirebaseConfigureInitializer
 import com.app.imagetovideo.utils.extension.getDeviceId
 import com.blankj.utilcode.util.NetworkUtils
 

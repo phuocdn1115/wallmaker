@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.imagetovideo.R
-import com.app.imagetovideo.ads.nativeads.NativeAdsInHomeManager
 import com.app.imagetovideo.data.model.ImageMadeByUser
 import com.app.imagetovideo.data.model.Template
 import com.app.imagetovideo.data.model.VideoMadeByUser
@@ -28,11 +27,6 @@ class VideoInHomeAdapter(
     private var onClickTemplate: (Int?, Template) -> Unit,
     private val onClickDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var nativeAdsInHomeManager: NativeAdsInHomeManager
-
-    fun setNativeAdsManager(nativeAdsInHomeManager: NativeAdsInHomeManager) {
-        this.nativeAdsInHomeManager = nativeAdsInHomeManager
-    }
 
     override fun getItemViewType(position: Int): Int {
         return when (dataList[position]) {
@@ -121,11 +115,7 @@ class VideoInHomeAdapter(
                     }
                 }
                 is NativeAdsViewHolder -> {
-                    when (dataList[position]) {
-                        is NativeAds -> {
-                            nativeAdsInHomeManager.getNativeAd()?.nativeAd?.let { holder.bind(it) }
-                        }
-                    }
+
                 }
                 is TemplateVideoViewHolder ->{
                     val dataInPosition = dataList[position]

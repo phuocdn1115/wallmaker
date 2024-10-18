@@ -3,15 +3,10 @@ package com.app.imagetovideo.aplication
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
-import com.app.imagetovideo.BuildConfig
 import com.app.imagetovideo.PreferencesKey.COUNTRY_CODE
-import com.app.imagetovideo.config.RegionConfig.Companion.AMERICA_CONFIG
-import com.app.imagetovideo.config.RegionConfig.Companion.ASIA_CONFIG
-import com.app.imagetovideo.config.RegionConfig.Companion.EU_CONFIG
-import com.app.imagetovideo.config.RegionConfig.Companion.VN_CONFIG
 import com.app.imagetovideo.enums.NetworkType
 import com.blankj.utilcode.util.Utils
-import java.util.*
+import java.util.Locale
 
 class NetworkContext {
 
@@ -20,12 +15,8 @@ class NetworkContext {
     var isNetworkConnected: Boolean = true
     var networkType = NetworkType.MEDIUM
     var countryKey = Locale.getDefault().country
-    var imageURL = ""
-    var regionConfigMap = hashMapOf<String, String>()
 
-    var apiList = mutableListOf<String>()
     var bestUrl : String =  ""
-    var chooseBestUrl : Boolean = false
 
     init {
         countryKey = preferenceManager.getString(COUNTRY_CODE, Locale.getDefault().country)

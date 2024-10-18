@@ -16,16 +16,6 @@ object ContextExt {
 
     val Context.memoryByGB :  Double get() = getMemory().totalMem / 1073741824.0
 
-    fun Context.getDeviceName(): String {
-        val manufacturer = Build.MANUFACTURER
-        val model = Build.MODEL
-        return if (model.lowercase(Locale.getDefault()).startsWith(manufacturer.lowercase(Locale.getDefault()))) {
-            capitalize(model)
-        } else {
-            capitalize(manufacturer).toString() + " " + model
-        }
-    }
-
     private fun capitalize(s: String?): String {
         if (s.isNullOrEmpty()) {
             return ""

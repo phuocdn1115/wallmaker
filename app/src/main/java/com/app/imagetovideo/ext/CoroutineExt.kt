@@ -1,8 +1,9 @@
 package com.app.imagetovideo.ext
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object CoroutineExt {
     fun runOnIO(onRun: suspend () -> Unit) {
@@ -25,22 +26,4 @@ object CoroutineExt {
         }
     }
 
-
-    fun runOnIOWithJob(onRun: suspend () -> Unit): Job {
-        return CoroutineScope(Dispatchers.IO).launch {
-            onRun()
-        }
-    }
-
-    fun ViewModel.runOnIO(onRun: suspend () -> Unit): Job {
-        return this.viewModelScope.launch(Dispatchers.IO) {
-            onRun()
-        }
-    }
-
-    fun ViewModel.runOnMain(onRun: suspend () -> Unit): Job {
-        return this.viewModelScope.launch(Dispatchers.Main) {
-            onRun()
-        }
-    }
 }
